@@ -77,6 +77,8 @@ export default buildConfig({
   editor: slateEditor({}),
   db: postgresAdapter({
     pool: {
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
       connectionString: process.env.DATABASE_URI,
     },
   }),
