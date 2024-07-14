@@ -130,6 +130,24 @@ const Products: CollectionConfig = {
       },
     },
     {
+      name: 'colors',
+      type: 'relationship',
+      relationTo: 'colors',
+      hasMany: false,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'sizes',
+      type: 'relationship',
+      relationTo: 'sizes',
+      hasMany: false,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'relatedProducts',
       type: 'relationship',
       relationTo: 'products',
