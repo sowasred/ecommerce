@@ -41,12 +41,14 @@ export const Card: React.FC<{
   title?: string
   relationTo?: 'products'
   doc?: Product
+  isRelatedProduct?: boolean
 }> = props => {
   const {
     showCategories,
     title: titleFromProps,
     doc,
     doc: { slug, title, categories, meta, priceJSON } = {},
+    isRelatedProduct,
     className,
   } = props
 
@@ -67,7 +69,7 @@ export const Card: React.FC<{
   }, [priceJSON])
 
   return (
-    <div className={[classes.card, className].filter(Boolean).join(' ')}>
+    <div className={ !isRelatedProduct ? [classes.card, className].filter(Boolean).join(' ') : classes.relatedProductCard}>
       <Link href={href} className={classes.mediaWrapper}>
         {!metaImage && <div className={classes.placeholder}>No image</div>}
         {metaImage && typeof metaImage !== 'string' && (
@@ -101,10 +103,10 @@ export const Card: React.FC<{
             )}
           </div>
         )}
-        {titleToUse && (
+        {titleToUse && !isRelatedProduct && (
           <h4 className={classes.title}>
             <Link href={href} className={classes.titleLink}>
-              {titleToUse}
+              {titleToUse.split('-')[0]}
             </Link>
           </h4>
         )}
@@ -113,7 +115,7 @@ export const Card: React.FC<{
             {description && <p className={classes.description}>{sanitizedDescription}</p>}
           </div>
         )} */}
-        {doc && <Price product={doc} />}
+        {doc && !isRelatedProduct && <Price product={doc} />}
       </div>
     </div>
   )

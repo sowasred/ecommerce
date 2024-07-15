@@ -8,6 +8,10 @@
   flex-direction: column;
 }
 
+.relatedProductCard {
+  max-width: 300px;
+}
+
 .content {
   padding: var(--base);
   flex-grow: 1;

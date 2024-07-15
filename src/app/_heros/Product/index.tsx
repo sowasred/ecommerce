@@ -66,7 +66,7 @@ export const ProductHero: React.FC<{
               return null
             })}
           </div>
-          <h1 className={classes.title}>{title}</h1>
+          <h1 className={classes.title}>{title.split('-')[0]}</h1>
           <div>
             <p className={classes.description}>
               {`${description ? `${description} ` : ''}`}
@@ -87,8 +87,11 @@ export const ProductHero: React.FC<{
                 </div>
               )
             } */}
+            <div className={classes.productFeatures}>
+              <h5>Price</h5>
+              <Price product={product} button={false} />
+            </div>
           </div>
-          <Price product={product} button={false} />
           <AddToCartButton product={product} className={classes.addToCartButton} />
         </div>
         <div className={classes.media}>
