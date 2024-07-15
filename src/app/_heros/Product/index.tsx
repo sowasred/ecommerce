@@ -79,14 +79,18 @@ export const ProductHero: React.FC<{
                 </div>
               )
             }
-            {/* {
-              size && (
+            {
+              sizes && sizes.length && (
                 <div className={classes.productFeatures}>
-                  <h5>Size</h5>
-                  <p>{size.title}</p>
+                  <h5>Sizes</h5>
+                  <div className={classes.sizeButWrapper}>
+                    {sizes.map((size, index) => (
+                      <span className={classes.sizeButton} key={index}>{size.title}</span>
+                    ))}
+                  </div>
                 </div>
               )
-            } */}
+            }
             <div className={classes.productFeatures}>
               <h5>Price</h5>
               <Price product={product} button={false} />

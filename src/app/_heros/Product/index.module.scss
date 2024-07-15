@@ -24,6 +24,22 @@
   }
 }
 
+.sizeButWrapper {
+  display: flex;
+  padding: 10px 0;
+}
+
+.sizeButton{
+  border: 1px solid var(--theme-elevation-1000);
+  width: 40px;
+  text-align: center;
+  margin-right: 15px !important;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--theme-elevation-50);
+  }
+}
+
 .categories {
   @extend %label;
 }
