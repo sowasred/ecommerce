@@ -277,7 +277,7 @@ export interface Product {
         populateBy?: ('collection' | 'selection') | null
         relationTo?: 'products' | null
         categories?: (string | Category)[] | null
-        sizes?: (string | Size)[] | null
+        sizes?: Size[] | null
         color?: Color | null
         limit?: number | null
         selectedDocs?:
@@ -370,7 +370,7 @@ export interface Product {
             populateBy?: ('collection' | 'selection') | null
             relationTo?: 'products' | null
             categories?: (string | Category)[] | null
-            sizes?: (string | Size)[] | null
+            sizes?: Size[] | null
             color?: Color | null
             limit?: number | null
             selectedDocs?:
@@ -393,7 +393,7 @@ export interface Product {
       )[]
     | null
   categories?: (string | Category)[] | null
-  sizes?: (string | Size)[] | null
+  sizes?: Size[] | null
   color?: Color | null
   relatedProducts?: (string | Product)[] | null
   slug?: string | null
