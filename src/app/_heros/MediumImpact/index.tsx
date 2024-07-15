@@ -12,9 +12,9 @@ export const MediumImpactHero: React.FC<Page['hero']> = props => {
   const { richText, media, links } = props
 
   return (
-    <Gutter className={classes.hero}>
+    <div className={classes.heroWrapper}>
       <div className={classes.background}>
-        <RichText className={classes.richText} content={richText} />
+        {/* <RichText className={classes.richText} content={richText} /> */}
         {Array.isArray(links) && (
           <ul className={classes.links}>
             {links.map(({ link }, i) => {
@@ -30,6 +30,6 @@ export const MediumImpactHero: React.FC<Page['hero']> = props => {
       <div className={classes.media}>
         {typeof media === 'object' && <Media className={classes.media} resource={media} />}
       </div>
-    </Gutter>
+    </div>
   )
 }

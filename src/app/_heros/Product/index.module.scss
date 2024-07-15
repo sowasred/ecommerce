@@ -28,6 +28,13 @@
   @extend %label;
 }
 
+.productFeatures {
+  display: flex;
+  flex-direction: column;
+  * {
+    margin: 0;
+  }
+}
 .title {
   margin: 0;
 }
