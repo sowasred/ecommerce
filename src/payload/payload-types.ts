@@ -21,6 +21,8 @@ export interface Config {
     orders: Order
     media: Media
     categories: Category
+    color: Color
+    sizes: Size
     users: User
     redirects: Redirect
     'payload-preferences': PayloadPreference
@@ -188,6 +190,21 @@ export interface Category {
   updatedAt: string
   createdAt: string
 }
+
+export interface Size {
+  id: string
+  title?: string | null
+  updatedAt: string
+  createdAt: string
+}
+
+export interface Color {
+  id: string
+  title?: string | null
+  updatedAt: string
+  createdAt: string
+}
+
 export interface Product {
   id: string
   title: string
@@ -260,6 +277,8 @@ export interface Product {
         populateBy?: ('collection' | 'selection') | null
         relationTo?: 'products' | null
         categories?: (string | Category)[] | null
+        sizes?: (string | Size)[] | null
+        color?: Color | null
         limit?: number | null
         selectedDocs?:
           | {
@@ -351,6 +370,8 @@ export interface Product {
             populateBy?: ('collection' | 'selection') | null
             relationTo?: 'products' | null
             categories?: (string | Category)[] | null
+            sizes?: (string | Size)[] | null
+            color?: Color | null
             limit?: number | null
             selectedDocs?:
               | {
@@ -372,6 +393,8 @@ export interface Product {
       )[]
     | null
   categories?: (string | Category)[] | null
+  sizes?: (string | Size)[] | null
+  color?: Color | null
   relatedProducts?: (string | Product)[] | null
   slug?: string | null
   skipSync?: boolean | null

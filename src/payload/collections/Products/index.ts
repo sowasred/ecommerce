@@ -130,7 +130,7 @@ const Products: CollectionConfig = {
       },
     },
     {
-      name: 'colors',
+      name: 'color',
       type: 'relationship',
       relationTo: 'colors',
       hasMany: false,
@@ -142,7 +142,7 @@ const Products: CollectionConfig = {
       name: 'sizes',
       type: 'relationship',
       relationTo: 'sizes',
-      hasMany: false,
+      hasMany: true,
       admin: {
         position: 'sidebar',
       },

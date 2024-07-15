@@ -19,6 +19,8 @@ export const ProductHero: React.FC<{
     stripeProductID,
     title,
     categories,
+    color,
+    sizes,
     meta: { image: metaImage, description } = {},
   } = product
 
@@ -67,12 +69,24 @@ export const ProductHero: React.FC<{
           <h1 className={classes.title}>{title}</h1>
           <div>
             <p className={classes.description}>
-              {`${description ? `${description} ` : ''}To edit this product, `}
-              <Link href={`${process.env.NEXT_PUBLIC_SERVER_URL}/admin/collections/products/${id}`}>
-                navigate to the admin dashboard
-              </Link>
-              {'.'}
+              {`${description ? `${description} ` : ''}`}
             </p>
+            {
+              color && (
+                <div className={classes.productFeatures}>
+                  <h5>Color</h5>
+                  <p>{color.title}</p>
+                </div>
+              )
+            }
+            {/* {
+              size && (
+                <div className={classes.productFeatures}>
+                  <h5>Size</h5>
+                  <p>{size.title}</p>
+                </div>
+              )
+            } */}
           </div>
           <Price product={product} button={false} />
           <AddToCartButton product={product} className={classes.addToCartButton} />
