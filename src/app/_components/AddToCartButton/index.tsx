@@ -43,8 +43,8 @@ export const AddToCartButton: React.FC<{
       quantity,
       size: selectedSize,
     })
-
-    router.push('/cart')
+    // if we want to redirect to the cart page after adding an item to the cart
+    // router.push('/cart')
   }
 
   return (
