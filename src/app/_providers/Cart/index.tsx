@@ -17,10 +17,10 @@ import { CartItem, cartReducer } from './reducer'
 export type CartContext = {
   cart: User['cart']
   addItemToCart: (item: CartItem) => void
-  deleteItemFromCart: (product: Product) => void
+  deleteItemFromCart: (product: Product, selectedSize: string) => void
   cartIsEmpty: boolean | undefined
   clearCart: () => void
-  isProductInCart: (product: Product) => boolean
+  isProductInCart: (product: Product, size?: string) => boolean
   cartTotal: {
     formatted: string
     raw: number
@@ -96,7 +96,7 @@ export const CartProvider = props => {
 
         if (parsedCart?.items && parsedCart?.items?.length > 0) {
           const initialCart = await Promise.all(
-            parsedCart.items.map(async ({ product, quantity }) => {
+            parsedCart.items.map(async ({ product, quantity, size }) => {
               const res = await fetch(
                 `${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${product}`,
               )
@@ -104,6 +104,7 @@ export const CartProvider = props => {
               return {
                 product: data,
                 quantity,
+                size,
               }
             }),
           )
@@ -134,7 +135,7 @@ export const CartProvider = props => {
     if (!hasInitialized.current) return
 
     if (authStatus === 'loggedIn') {
-      // merge the user's cart with the local state upon logging in
+    // merge the user's cart with the local state upon logging in
       dispatchCart({
         type: 'MERGE_CART',
         payload: user?.cart,
@@ -195,15 +196,15 @@ export const CartProvider = props => {
   }, [user, cart])
 
   const isProductInCart = useCallback(
-    (incomingProduct: Product): boolean => {
+    (incomingProduct: Product, selectedSize?: string): boolean => {
       let isInCart = false
       const { items: itemsInCart } = cart || {}
       if (Array.isArray(itemsInCart) && itemsInCart.length > 0) {
         isInCart = Boolean(
-          itemsInCart.find(({ product }) =>
+          itemsInCart.find(({ product, size }) =>
             typeof product === 'string'
-              ? product === incomingProduct.id
-              : product?.id === incomingProduct.id,
+              ? product === incomingProduct.id && size === selectedSize
+              : product?.id === incomingProduct.id && size === selectedSize,
           ), // eslint-disable-line function-paren-newline
         )
       }
@@ -212,7 +213,7 @@ export const CartProvider = props => {
     [cart],
   )
 
-  // this method can be used to add new items AND update existing ones
+    // this method can be used to add new items AND update existing ones
   const addItemToCart = useCallback(incomingItem => {
     dispatchCart({
       type: 'ADD_ITEM',
@@ -220,10 +221,10 @@ export const CartProvider = props => {
     })
   }, [])
 
-  const deleteItemFromCart = useCallback((incomingProduct: Product) => {
+  const deleteItemFromCart = useCallback((incomingProduct: Product, selectedSize: string) => {
     dispatchCart({
       type: 'DELETE_ITEM',
-      payload: incomingProduct,
+      payload:  { product: incomingProduct, size: selectedSize },
     })
   }, [])
 

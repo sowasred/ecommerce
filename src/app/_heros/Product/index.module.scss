@@ -39,6 +39,9 @@
     background-color: var(--theme-elevation-50);
   }
 }
+.selected {
+  background-color: var(--theme-elevation-50); 
+}
 
 .categories {
   @extend %label;

@@ -42,9 +42,10 @@ export const priceFromJSON = (priceJSON: string, quantity: number = 1, raw?: boo
 export const Price: React.FC<{
   product: Product
   quantity?: number
+  showSizes?: boolean | false
   button?: 'addToCart' | 'removeFromCart' | false
 }> = props => {
-  const { product, product: { priceJSON } = {}, button = 'addToCart', quantity } = props
+  const { product, product: { priceJSON, sizes } = {}, button = 'addToCart', quantity, showSizes } = props
 
   const [price, setPrice] = useState<{
     actualPrice: string
@@ -54,6 +55,8 @@ export const Price: React.FC<{
     withQuantity: priceFromJSON(priceJSON, quantity),
   }))
 
+  const [selectedSize, setSelectedSize] = useState<string | null>(null)
+
   useEffect(() => {
     setPrice({
       actualPrice: priceFromJSON(priceJSON),
@@ -62,7 +65,23 @@ export const Price: React.FC<{
   }, [priceJSON, quantity])
 
   return (
-    <div className={classes.actions}>
+    <div className={classes.actionsWrapper}>
+      {showSizes && sizes && sizes.length > 0 && (
+        <div className={classes.sizes}>
+            {sizes.map((size, index) => (
+              <button
+                key={index}
+                className={`${classes.sizeButton} ${selectedSize === size.title ? classes.selected : ''}`}
+                onClick={() => {
+                  setSelectedSize(size.title)
+                }}
+              >
+                {size.title}
+              </button>
+            ))}
+        </div>
+      )}
+      <div className={classes.actions}>
       {typeof price?.actualPrice !== 'undefined' && price?.withQuantity !== '' && (
         <div className={classes.price}>
           <p>{price?.withQuantity}</p>
@@ -72,9 +91,10 @@ export const Price: React.FC<{
         </div>
       )}
       {button && button === 'addToCart' && (
-        <AddToCartButton product={product} appearance="default" />
+        <AddToCartButton product={product} appearance="default" selectedSize={selectedSize} />
       )}
       {button && button === 'removeFromCart' && <RemoveFromCartButton product={product} />}
+    </div>
     </div>
   )
 }

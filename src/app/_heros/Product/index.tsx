@@ -1,4 +1,6 @@
-import React, { Fragment } from 'react'
+'use client'
+
+import React, { Fragment, useState } from 'react'
 import Link from 'next/link'
 
 import { Product } from '../../../payload/payload-types'
@@ -23,6 +25,8 @@ export const ProductHero: React.FC<{
     sizes,
     meta: { image: metaImage, description } = {},
   } = product
+
+  const [selectedSize, setSelectedSize] = useState<string | null>(null)
 
   return (
     <Fragment>
@@ -85,7 +89,13 @@ export const ProductHero: React.FC<{
                   <h5>Sizes</h5>
                   <div className={classes.sizeButWrapper}>
                     {sizes.map((size, index) => (
-                      <span className={classes.sizeButton} key={index}>{size.title}</span>
+                      <button
+                        key={index}
+                        onClick={() => setSelectedSize(size.title)}
+                        className={`${classes.sizeButton} ${selectedSize === size.title ? classes.selected : ''}`}
+                      >
+                        {size.title}
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -96,7 +106,7 @@ export const ProductHero: React.FC<{
               <Price product={product} button={false} />
             </div>
           </div>
-          <AddToCartButton product={product} className={classes.addToCartButton} />
+          <AddToCartButton product={product} selectedSize={selectedSize} className={classes.addToCartButton} />
         </div>
         <div className={classes.media}>
           <div className={classes.mediaWrapper}>

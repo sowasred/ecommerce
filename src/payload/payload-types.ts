@@ -10,6 +10,7 @@ export type CartItems =
   | {
       product?: (string | null) | Product
       quantity?: number | null
+      size?: string | null
       id?: string | null
     }[]
   | null
@@ -417,6 +418,7 @@ export interface Order {
         product: string | Product
         price?: number | null
         quantity?: number | null
+        size?: string | null
         id?: string | null
       }[]
     | null

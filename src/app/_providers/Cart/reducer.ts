@@ -19,7 +19,7 @@ type CartAction =
     }
   | {
       type: 'DELETE_ITEM'
-      payload: Product
+      payload: { product: Product; size: string };
     }
   | {
       type: 'CLEAR_CART'
@@ -38,18 +38,20 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
         ...(cart?.items || []),
         ...(incomingCart?.items || []),
       ].reduce((acc: CartItem[], item) => {
-        // remove duplicates
+        // if the item is already in the cart, increase the quantity
         const productId = typeof item.product === 'string' ? item.product : item?.product?.id
+        const size = item.size
 
-        const indexInAcc = acc.findIndex(({ product }) =>
-          typeof product === 'string' ? product === productId : product?.id === productId,
-        ) // eslint-disable-line function-paren-newline
+        const indexInAcc = acc.findIndex(
+          ({ product, size: accSize }) =>
+            (typeof product === 'string' ? product === productId : product?.id === productId) &&
+            size === accSize,
+        )
 
         if (indexInAcc > -1) {
           acc[indexInAcc] = {
             ...acc[indexInAcc],
-            // customize the merge logic here, e.g.:
-            // quantity: acc[indexInAcc].quantity + item.quantity
+            quantity: acc[indexInAcc].quantity + item.quantity,
           }
         } else {
           acc.push(item)
@@ -64,25 +66,24 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
     }
 
     case 'ADD_ITEM': {
-      // if the item is already in the cart, increase the quantity
       const { payload: incomingItem } = action
-      const productId =
-        typeof incomingItem.product === 'string' ? incomingItem.product : incomingItem?.product?.id
+      const productId = typeof incomingItem.product === 'string' ? incomingItem.product : incomingItem?.product?.id
+      const size = incomingItem.size
 
-      const indexInCart = cart?.items?.findIndex(({ product }) =>
-        typeof product === 'string' ? product === productId : product?.id === productId,
-      ) // eslint-disable-line function-paren-newline
+      const indexInCart = cart?.items?.findIndex(
+        ({ product, size: itemSize }) =>
+          (typeof product === 'string' ? product === productId : product?.id === productId) &&
+          size === itemSize,
+      )
 
       let withAddedItem = [...(cart?.items || [])]
 
       if (indexInCart === -1) {
         withAddedItem.push(incomingItem)
-      }
-
-      if (typeof indexInCart === 'number' && indexInCart > -1) {
+      } else {
         withAddedItem[indexInCart] = {
           ...withAddedItem[indexInCart],
-          quantity: (incomingItem.quantity || 0) > 0 ? incomingItem.quantity : undefined,
+          quantity: withAddedItem[indexInCart].quantity + incomingItem.quantity,
         }
       }
 
@@ -93,19 +94,19 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
     }
 
     case 'DELETE_ITEM': {
-      const { payload: incomingProduct } = action
-      const withDeletedItem = { ...cart }
+      const { product: incomingProduct, size: selectedSize } = action.payload;
+      const withDeletedItem = { ...cart };
 
-      const indexInCart = cart?.items?.findIndex(({ product }) =>
-        typeof product === 'string'
-          ? product === incomingProduct.id
-          : product?.id === incomingProduct.id,
-      ) // eslint-disable-line function-paren-newline
+      const indexInCart = cart?.items?.findIndex(
+        ({ product, size: itemSize }) =>
+          (typeof product === 'string' ? product === incomingProduct.id : product?.id === incomingProduct.id) &&
+          itemSize === selectedSize,
+      );
 
       if (typeof indexInCart === 'number' && withDeletedItem.items && indexInCart > -1)
-        withDeletedItem.items.splice(indexInCart, 1)
+        withDeletedItem.items.splice(indexInCart, 1);
 
-      return withDeletedItem
+      return withDeletedItem;
     }
 
     case 'CLEAR_CART': {

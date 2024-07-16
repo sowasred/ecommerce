@@ -72,6 +72,7 @@ export const CartPage: React.FC<{
                   const {
                     quantity,
                     product,
+                    size,
                     product: { id, title, meta, stripeProductID },
                   } = item
 
@@ -125,11 +126,32 @@ export const CartPage: React.FC<{
                                   addItemToCart({
                                     product,
                                     quantity: Number(e.target.value),
+                                    size, 
                                   })
                                 }}
                               />
                             </label>
-                            <RemoveFromCartButton product={product} />
+                            <label>
+                              Size &nbsp;
+                              <select
+                                className={classes.size}
+                                value={size || ''}
+                                onChange={e => {
+                                  addItemToCart({
+                                    product,
+                                    quantity,
+                                    size: e.target.value,
+                                  })
+                                }}
+                              >
+                                {product?.sizes?.map((size, index) => (
+                                  <option key={index} value={size.title}>
+                                    {size.title}
+                                  </option>
+                                ))}
+                              </select>
+                            </label>
+                            <RemoveFromCartButton product={product} selectedSize={size} />
                           </div>
                           <Price product={product} button={false} quantity={quantity} />
                         </div>

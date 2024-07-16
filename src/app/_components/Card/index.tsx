@@ -115,7 +115,7 @@ export const Card: React.FC<{
             {description && <p className={classes.description}>{sanitizedDescription}</p>}
           </div>
         )} */}
-        {doc && !isRelatedProduct && <Price product={doc} />}
+        {doc && !isRelatedProduct && <Price product={doc} showSizes={true} />}
       </div>
     </div>
   )
