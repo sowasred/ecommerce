@@ -42,6 +42,7 @@ html,
 body,
 #app {
   height: 100%;
+  width: 100vw;
 }
 
 body {
@@ -120,4 +121,14 @@ a {
 
 svg {
   vertical-align: middle;
+}
+#productVariations {
+  width: 100%;
+}
+
+#productVariations * {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+  max-width: 130px !important;
 }
