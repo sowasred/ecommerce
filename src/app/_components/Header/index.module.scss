@@ -2,6 +2,12 @@
 
 .header {
   padding: var(--base) 0;
+  position: sticky;
+  top: 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Ensures the header stays above other content */
 }
 
 .wrap {
