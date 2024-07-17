@@ -2,7 +2,6 @@
 
 import React, { Fragment } from 'react'
 import Link from 'next/link'
-
 import { Page, Settings } from '../../../../payload/payload-types'
 import { Button } from '../../../_components/Button'
 import { HR } from '../../../_components/HR'
@@ -23,8 +22,18 @@ export const CartPage: React.FC<{
   const { productsPage } = settings || {}
 
   const { user } = useAuth()
-
   const { cart, cartIsEmpty, addItemToCart, cartTotal, hasInitializedCart } = useCart()
+
+  const handleQuantityChange = (e, product, size) => {
+    const newQuantity = Number(e.target.value)
+    if (newQuantity < 1 || newQuantity > 99) return
+
+    addItemToCart({
+      product,
+      quantity: newQuantity,
+      size,
+    })
+  }
 
   return (
     <Fragment>
@@ -77,8 +86,10 @@ export const CartPage: React.FC<{
                   } = item
 
                   const isLast = index === (cart?.items?.length || 0) - 1
-
                   const metaImage = meta?.image
+                  if(!stripeProductID) {
+                    console.error('stripeProductID is not defined')
+                  }
 
                   return (
                     <Fragment key={index}>
@@ -95,19 +106,6 @@ export const CartPage: React.FC<{
                           )}
                         </Link>
                         <div className={classes.rowContent}>
-                          {!stripeProductID && (
-                            <p className={classes.warning}>
-                              {
-                                `This product is not yet connected to Stripe. To link this product, ${stripeProductID}`
-                              }
-                              <Link
-                                href={`${process.env.NEXT_PUBLIC_SERVER_URL}/admin/collections/products/${id}`}
-                              >
-                                edit this product in the admin panel
-                              </Link>
-                              {'.'}
-                            </p>
-                          )}
                           <h5 className={classes.title}>
                             <Link href={`/products/${product.slug}`} className={classes.titleLink}>
                               {title}
@@ -119,37 +117,20 @@ export const CartPage: React.FC<{
                               <input
                                 type="number"
                                 className={classes.quantity}
-                                // fallback to empty string to avoid uncontrolled input error
-                                // this allows the user to user their backspace key to clear the input
-                                value={typeof quantity === 'number' ? quantity : ''}
-                                onChange={e => {
-                                  addItemToCart({
-                                    product,
-                                    quantity: Number(e.target.value),
-                                    size, 
-                                  })
+                                max={99}
+                                min={1}
+                                value={quantity ?? ''}
+                                onChange={(e) => handleQuantityChange(e, product, size)}
+                                onBlur={(e) => {
+                                  if (e.target.value === '') {
+                                    handleQuantityChange({ target: { value: 1 } }, product, size)
+                                  }
                                 }}
                               />
                             </label>
                             <label>
-                              Size &nbsp;
-                              <select
-                                className={classes.size}
-                                value={size || ''}
-                                onChange={e => {
-                                  addItemToCart({
-                                    product,
-                                    quantity,
-                                    size: e.target.value,
-                                  })
-                                }}
-                              >
-                                {product?.sizes?.map((size, index) => (
-                                  <option key={index} value={size.title}>
-                                    {size.title}
-                                  </option>
-                                ))}
-                              </select>
+                              Size: &nbsp;
+                              <span>{size}</span>
                             </label>
                             <RemoveFromCartButton product={product} selectedSize={size} />
                           </div>

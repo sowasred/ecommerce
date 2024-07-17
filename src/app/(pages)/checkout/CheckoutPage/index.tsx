@@ -108,7 +108,9 @@ export const CheckoutPage: React.FC<{
               const isLast = index === (cart?.items?.length || 0) - 1
 
               const metaImage = meta?.image
-
+              if(!stripeProductID) {
+                console.error('stripeProductID is not defined')
+              }
               return (
                 <Fragment key={index}>
                   <div className={classes.row}>
@@ -124,17 +126,6 @@ export const CheckoutPage: React.FC<{
                       )}
                     </div>
                     <div className={classes.rowContent}>
-                      {!stripeProductID && (
-                        <p className={classes.warning}>
-                          {'This product is not yet connected to Stripe. To link this product, '}
-                          <Link
-                            href={`${process.env.NEXT_PUBLIC_SERVER_URL}/admin/collections/products/${id}`}
-                          >
-                            edit this product in the admin panel
-                          </Link>
-                          {'.'}
-                        </p>
-                      )}
                       <h6 className={classes.title}>{title}</h6>
                       <Price product={product} button={false} quantity={quantity} />
                     </div>

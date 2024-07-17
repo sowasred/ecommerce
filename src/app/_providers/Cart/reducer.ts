@@ -83,7 +83,7 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
       } else {
         withAddedItem[indexInCart] = {
           ...withAddedItem[indexInCart],
-          quantity: withAddedItem[indexInCart].quantity + incomingItem.quantity,
+          quantity: incomingItem.quantity,
         }
       }
 
