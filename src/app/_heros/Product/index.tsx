@@ -10,6 +10,7 @@ import { Media } from '../../_components/Media'
 import { Message } from '../../_components/Message'
 import { Price } from '../../_components/Price'
 import RichText from '../../_components/RichText'
+import { Blocks } from '../../_components/Blocks'
 
 import classes from './index.module.scss'
 
@@ -75,6 +76,14 @@ export const ProductHero: React.FC<{
             <p className={classes.description}>
               {`${description ? `${description} ` : ''}`}
             </p>
+            <div className={classes.mediaMobile}>
+              <div className={classes.mediaWrapper}>
+                {!metaImage && <div className={classes.placeholder}>No image</div>}
+                {metaImage && typeof metaImage !== 'string' && (
+                  <Media imgClassName={classes.image} resource={metaImage} fill />
+                )}
+              </div>
+            </div>
             {
               color && (
                 <div className={classes.productFeatures}>
@@ -107,6 +116,21 @@ export const ProductHero: React.FC<{
             </div>
           </div>
           <AddToCartButton product={product} selectedSize={selectedSize} className={classes.addToCartButton} />
+          <div id='productVariations'>
+            <Blocks
+              disableTopPadding
+              blocks={[
+                {
+                  blockType: 'relatedProducts',
+                  blockName: 'Related Product',
+                  relationTo: 'products',
+                  introContent: [
+                  ],
+                  docs: product.relatedProducts,
+                },
+              ]}
+            />
+          </div>
         </div>
         <div className={classes.media}>
           <div className={classes.mediaWrapper}>

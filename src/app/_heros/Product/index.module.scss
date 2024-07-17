@@ -70,7 +70,17 @@
   width: 50%;
 
   @include mid-break {
-    width: 100%;
+    display: none;
+  }
+}
+
+.mediaMobile {
+  display: none;
+
+  @include mid-break {
+    display: block;
+    width: 100vw;
+    margin-top: var(--base);
   }
 }
 
