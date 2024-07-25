@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import React, { Fragment, useState } from 'react'
 import Link from 'next/link'
@@ -28,11 +28,17 @@ export const ProductHero: React.FC<{
   } = product
 
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
+  const [productImages, setProductImages] = useState<any>(product.productImages)
+  const [selectedImage, setSelectedImage] = useState<any | null>(metaImage || null)
 
-  if(!stripeProductID){
+  if (!stripeProductID) {
     console.error(`Product ${id} is not connected to Stripe.`)
   }
-  
+
+  const handleImageClick = (image: any) => {
+    setSelectedImage(image)
+  }
+
   return (
     <Fragment>
       <Gutter className={classes.productHero}>
@@ -58,44 +64,54 @@ export const ProductHero: React.FC<{
             })}
           </div>
           <h1 className={classes.title}>{title.split('-')[0]}</h1>
-          <div>
+          <div className={classes.productInfo}>
             <p className={classes.description}>
               {`${description ? `${description} ` : ''}`}
             </p>
             <div className={classes.mediaMobile}>
               <div className={classes.mediaWrapper}>
-                {!metaImage && <div className={classes.placeholder}>No image</div>}
-                {metaImage && typeof metaImage !== 'string' && (
-                  <Media imgClassName={classes.image} resource={metaImage} fill />
+                {!selectedImage && <div className={classes.placeholder}>No image</div>}
+                {selectedImage && typeof selectedImage !== 'string' && (
+                  <Media imgClassName={classes.image} resource={selectedImage} fill />
                 )}
               </div>
             </div>
-            {
-              color && (
-                <div className={classes.productFeatures}>
-                  <h5>Color</h5>
-                  <p>{color.title}</p>
-                </div>
-              )
-            }
-            {
-              sizes && sizes.length > 0 && (
-                <div className={classes.productFeatures}>
-                  <h5>Sizes</h5>
-                  <div className={classes.sizeButWrapper}>
-                    {sizes.map((size, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setSelectedSize(size.title)}
-                        className={`${classes.sizeButton} ${selectedSize === size.title ? classes.selected : ''}`}
-                      >
-                        {size.title}
-                      </button>
-                    ))}
+            {/* Add product images for mobile view here  */}
+            <div className={classes.productImagesMobile}>
+              <div className={classes.carousel}>
+                {[metaImage, ...productImages.map(image => image.image)].map((image, index) => (
+                  <div
+                    key={index}
+                    className={classes.carouselImageWrapper}
+                    onClick={() => handleImageClick(image)}
+                  >
+                    <Media imgClassName={classes.carouselImage} resource={image} />
                   </div>
+                ))}
+              </div>
+            </div>
+            {color && (
+              <div className={classes.productFeatures}>
+                <h5>Color</h5>
+                <p>{color.title}</p>
+              </div>
+            )}
+            {sizes && sizes.length > 0 && (
+              <div className={classes.productFeatures}>
+                <h5>Sizes</h5>
+                <div className={classes.sizeButWrapper}>
+                  {sizes.map((size, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedSize(size.title)}
+                      className={`${classes.sizeButton} ${selectedSize === size.title ? classes.selected : ''}`}
+                    >
+                      {size.title}
+                    </button>
+                  ))}
                 </div>
-              )
-            }
+              </div>
+            )}
             <div className={classes.productFeatures}>
               <h5>Price</h5>
               <Price product={product} button={false} />
@@ -110,8 +126,7 @@ export const ProductHero: React.FC<{
                   blockType: 'relatedProducts',
                   blockName: 'Related Product',
                   relationTo: 'products',
-                  introContent: [
-                  ],
+                  introContent: [],
                   docs: product.relatedProducts,
                 },
               ]}
@@ -120,14 +135,28 @@ export const ProductHero: React.FC<{
         </div>
         <div className={classes.media}>
           <div className={classes.mediaWrapper}>
-            {!metaImage && <div className={classes.placeholder}>No image</div>}
-            {metaImage && typeof metaImage !== 'string' && (
-              <Media imgClassName={classes.image} resource={metaImage} fill />
+            {!selectedImage && <div className={classes.placeholder}>No image</div>}
+            {selectedImage && typeof selectedImage !== 'string' && (
+              <Media imgClassName={classes.image} resource={selectedImage} fill />
             )}
           </div>
-          {metaImage && typeof metaImage !== 'string' && metaImage?.caption && (
-            <RichText content={metaImage.caption} className={classes.caption} />
+          {selectedImage && typeof selectedImage !== 'string' && selectedImage?.caption && (
+            <RichText content={selectedImage.caption} className={classes.caption} />
           )}
+          {/* Product Images below should be displayed above the mid break for desktop */}
+          <div className={classes.productImages}>
+            <div className={classes.carousel}>
+              {[metaImage, ...productImages.map(image => image.image)].map((image, index) => (
+                <div
+                  key={index}
+                  className={classes.carouselImageWrapper}
+                  onClick={() => handleImageClick(image)}
+                >
+                  <Media imgClassName={classes.carouselImage} resource={image} />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </Gutter>
     </Fragment>

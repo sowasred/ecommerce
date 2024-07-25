@@ -29,16 +29,18 @@
   padding: 10px 0;
 }
 
-.sizeButton{
+.sizeButton {
   border: 1px solid var(--theme-elevation-1000);
   width: 40px;
   text-align: center;
   margin-right: 15px !important;
   cursor: pointer;
+
   &:hover {
     background-color: var(--theme-elevation-50);
   }
 }
+
 .selected {
   background-color: var(--theme-elevation-50); 
 }
@@ -54,6 +56,7 @@
     margin: 0;
   }
 }
+
 .title {
   margin: 0;
 }
@@ -117,4 +120,42 @@
 
 .addToCartButton {
   margin-top: calc(var(--base) / 2);
+}
+
+.productImagesMobile {
+  display: none;
+
+  @include mid-break {
+    display: block;
+    margin-top: var(--base);
+  }
+
+}
+.productImages {
+  margin-top: var(--base);
+  width: calc(100% + calc(var(--gutter-h) / 2));
+  @include mid-break {
+    display: none;
+  }
+}
+
+.carousel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base);
+
+  .carouselImageWrapper {
+    cursor: pointer;
+    border: 1px solid var(--theme-elevation-1000);
+    padding: 2px;
+    &:hover {
+      border-color: var(--theme-elevation-500);
+    }
+  }
+
+  .carouselImage {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+  }
 }
