@@ -65,9 +65,8 @@ export const CartPage: React.FC<{
           ) : (
             <div className={classes.items}>
               <div className={classes.itemsTotal}>
-                {`There ${cart?.items?.length === 1 ? 'is' : 'are'} ${cart?.items?.length} item${
-                  cart?.items?.length === 1 ? '' : 's'
-                } in your cart.`}
+                {`There ${cart?.items?.length === 1 ? 'is' : 'are'} ${cart?.items?.length} item${cart?.items?.length === 1 ? '' : 's'
+                  } in your cart.`}
                 {!user && (
                   <Fragment>
                     {' '}
