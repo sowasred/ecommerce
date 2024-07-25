@@ -24,6 +24,13 @@ export const PRODUCT = `
         ${CATEGORIES}
         ${COLOR}
         ${SIZES}
+        productImages {
+          id
+          image {
+            url
+            caption
+          }
+        }
         layout {
           ${CALL_TO_ACTION}
           ${CONTENT}

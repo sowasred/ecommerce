@@ -396,6 +396,7 @@ export interface Product {
   categories?: (string | Category)[] | null
   sizes?: Size[] | null
   color?: Color | null
+  productImages?: (string | Media)[] | null
   relatedProducts?: (string | Product)[] | null
   slug?: string | null
   skipSync?: boolean | null

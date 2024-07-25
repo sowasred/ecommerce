@@ -83,6 +83,13 @@ const Products: CollectionConfig = {
           label: 'Product Details',
           fields: [
             {
+              name: 'productImages',
+              label: 'Product Images',
+              type: 'relationship',
+              relationTo: 'media',
+              hasMany: true,
+            },
+            {
               name: 'stripeProductID',
               label: 'Stripe Product',
               type: 'text',
