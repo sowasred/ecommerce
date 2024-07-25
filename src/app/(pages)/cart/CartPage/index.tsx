@@ -127,10 +127,14 @@ export const CartPage: React.FC<{
                                 }}
                               />
                             </label>
-                            <label>
-                              Size: &nbsp;
-                              <span>{size}</span>
-                            </label>
+                            {
+                              size && (
+                                <label>
+                                  Size: &nbsp;
+                                  <span>{size}</span>
+                                </label>
+                              )
+                            }
                             <RemoveFromCartButton product={product} selectedSize={size} />
                           </div>
                           <Price product={product} button={false} quantity={quantity} />
