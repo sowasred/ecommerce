@@ -68,37 +68,63 @@ export const Price: React.FC<{
     // do something after adding to cart
   }
 
+  const possibleSizes = ['XS', 'S', 'M', 'L', 'XL']
+  const possibleSizes2 = ['28', '30', '32', '34', '36', '38', '40', '42', '44']
+
+  const decidePossibleSizes = (sizes) => {
+    if (sizes.length === 0) return []
+    if (possibleSizes.includes(sizes[0].title)) return possibleSizes
+    if (possibleSizes2.includes(sizes[0].title)) return possibleSizes2
+    return []
+  }
+
+  const availableSizes = sizes.map(size => size.title)
+
+  const allPossibleSizes = decidePossibleSizes(sizes).map(size => ({
+    title: size,
+    available: availableSizes.includes(size)
+  }))
+
   return (
     <div className={classes.actionsWrapper}>
-      {showSizes && sizes && sizes.length > 0 && (
+      {showSizes && allPossibleSizes.length > 0 && (
         <div className={classes.sizes}>
-            {sizes.map((size, index) => (
-              <button
-                key={index}
-                className={`${classes.sizeButton} ${selectedSize === size.title ? classes.selected : ''}`}
-                onClick={() => {
+          {allPossibleSizes.map((size, index) => (
+            <button
+              key={index}
+              className={`${classes.sizeButton} ${selectedSize === size.title ? classes.selected : ''}`}
+              onClick={() => {
+                if (size.available) {
                   setSelectedSize(size.title)
-                }}
-              >
-                {size.title}
-              </button>
-            ))}
+                }
+              }}
+              disabled={!size.available}
+            >
+              {size.title}
+            </button>
+          ))}
         </div>
       )}
       <div className={classes.actions}>
-      {typeof price?.actualPrice !== 'undefined' && price?.withQuantity !== '' && (
-        <div className={classes.price}>
-          <p>{price?.withQuantity}</p>
-          {quantity > 1 && (
-            <small className={classes.priceBreakdown}>{`${price.actualPrice} x ${quantity}`}</small>
-          )}
-        </div>
-      )}
-      {button && button === 'addToCart' && (
-        <AddToCartButton product={product} appearance="default" selectedSize={selectedSize} onAddToCart={handleResetSize} itemHasSize={sizes.length > 0} />
-      )}
-      {button && button === 'removeFromCart' && <RemoveFromCartButton product={product} />}
-    </div>
+        {typeof price?.actualPrice !== 'undefined' && price?.withQuantity !== '' && (
+          <div className={classes.price}>
+            <p>{price?.withQuantity}</p>
+            {quantity > 1 && (
+              <small className={classes.priceBreakdown}>{`${price.actualPrice} x ${quantity}`}</small>
+            )}
+          </div>
+        )}
+        {button && button === 'addToCart' && (
+          <AddToCartButton 
+            product={product} 
+            appearance="default" 
+            selectedSize={selectedSize} 
+            onAddToCart={handleResetSize} 
+            itemHasSize={sizes.length > 0} 
+          />
+        )}
+        {button && button === 'removeFromCart' && <RemoveFromCartButton product={product} />}
+      </div>
     </div>
   )
 }
