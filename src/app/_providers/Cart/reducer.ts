@@ -19,7 +19,7 @@ type CartAction =
     }
   | {
       type: 'DELETE_ITEM'
-      payload: { product: Product; size: string };
+      payload: { product: Product; size?: string };
     }
   | {
       type: 'CLEAR_CART'
@@ -96,18 +96,23 @@ export const cartReducer = (cart: CartType, action: CartAction): CartType => {
     case 'DELETE_ITEM': {
       const { product: incomingProduct, size: selectedSize } = action.payload;
       const withDeletedItem = { ...cart };
-
+    
       const indexInCart = cart?.items?.findIndex(
         ({ product, size: itemSize }) =>
           (typeof product === 'string' ? product === incomingProduct.id : product?.id === incomingProduct.id) &&
-          itemSize === selectedSize,
+          (!selectedSize || itemSize === selectedSize)
       );
-
-      if (typeof indexInCart === 'number' && withDeletedItem.items && indexInCart > -1)
+    
+      if (typeof indexInCart === 'number' && withDeletedItem.items && indexInCart > -1) {
         withDeletedItem.items.splice(indexInCart, 1);
-
-      return withDeletedItem;
+      }
+    
+      return {
+        ...cart,
+        items: withDeletedItem.items
+      };
     }
+    
 
     case 'CLEAR_CART': {
       return {
