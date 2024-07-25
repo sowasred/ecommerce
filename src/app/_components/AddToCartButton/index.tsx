@@ -15,8 +15,10 @@ export const AddToCartButton: React.FC<{
   quantity?: number
   className?: string
   appearance?: Props['appearance']
+  onAddToCart?: () => void
+  itemHasSize: boolean
 }> = props => {
-  const { product, selectedSize, quantity = 1, className, appearance = 'primary' } = props
+  const { product, selectedSize, quantity = 1, className, appearance = 'primary', onAddToCart, itemHasSize } = props
 
   const { cart, addItemToCart, isProductInCart, hasInitializedCart } = useCart()
 
@@ -33,7 +35,7 @@ export const AddToCartButton: React.FC<{
   const [warning, setWarning] = useState<string | null>(null)
 
   const handleAddToCart = () => {
-    if (!selectedSize) {
+    if (!selectedSize && itemHasSize) {
       setWarning('Please select a size.')
       return
     }
@@ -45,6 +47,10 @@ export const AddToCartButton: React.FC<{
     })
     // if we want to redirect to the cart page after adding an item to the cart
     // router.push('/cart')
+    // do something after adding to cart
+    // if (onAddToCart) {
+    //   onAddToCart()
+    // }
   }
 
   return (

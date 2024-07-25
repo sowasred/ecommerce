@@ -64,6 +64,10 @@ export const Price: React.FC<{
     })
   }, [priceJSON, quantity])
 
+  const handleResetSize = () => {
+    // do something after adding to cart
+  }
+
   return (
     <div className={classes.actionsWrapper}>
       {showSizes && sizes && sizes.length > 0 && (
@@ -91,7 +95,7 @@ export const Price: React.FC<{
         </div>
       )}
       {button && button === 'addToCart' && (
-        <AddToCartButton product={product} appearance="default" selectedSize={selectedSize} />
+        <AddToCartButton product={product} appearance="default" selectedSize={selectedSize} onAddToCart={handleResetSize} itemHasSize={sizes.length > 0} />
       )}
       {button && button === 'removeFromCart' && <RemoveFromCartButton product={product} />}
     </div>
