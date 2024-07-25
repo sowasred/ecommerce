@@ -28,6 +28,11 @@ export const PRODUCT = `
           id
           image {
             url
+            mimeType
+            filename
+            width
+            height
+            alt
             caption
           }
         }
