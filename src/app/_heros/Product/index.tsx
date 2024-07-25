@@ -79,7 +79,7 @@ export const ProductHero: React.FC<{
               )
             }
             {
-              sizes && sizes.length && (
+              sizes && sizes.length > 0 && (
                 <div className={classes.productFeatures}>
                   <h5>Sizes</h5>
                   <div className={classes.sizeButWrapper}>
@@ -101,7 +101,7 @@ export const ProductHero: React.FC<{
               <Price product={product} button={false} />
             </div>
           </div>
-          <AddToCartButton product={product} selectedSize={selectedSize} className={classes.addToCartButton} />
+          <AddToCartButton product={product} selectedSize={selectedSize} className={classes.addToCartButton} itemHasSize={sizes && sizes.length > 0} />
           <div id='productVariations'>
             <Blocks
               disableTopPadding
