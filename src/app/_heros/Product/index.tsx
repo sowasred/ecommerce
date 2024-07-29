@@ -39,6 +39,23 @@ export const ProductHero: React.FC<{
     setSelectedImage(image)
   }
 
+  const possibleSizes = ['XS', 'S', 'M', 'L', 'XL']
+  const possibleSizes2 = ['28', '30', '32', '34', '36', '38', '40', '42', '44']
+
+  const decidePossibleSizes = (sizes) => {
+    if (sizes.length === 0) return []
+    if (possibleSizes.includes(sizes[0].title)) return possibleSizes
+    if (possibleSizes2.includes(sizes[0].title)) return possibleSizes2
+    return []
+  }
+
+  const availableSizes = sizes.map(size => size.title)
+
+  const allPossibleSizes = decidePossibleSizes(sizes).map(size => ({
+    title: size,
+    available: availableSizes.includes(size)
+  }))
+
   return (
     <Fragment>
       <Gutter className={classes.productHero}>
@@ -96,15 +113,20 @@ export const ProductHero: React.FC<{
                 <p>{color.title}</p>
               </div>
             )}
-            {sizes && sizes.length > 0 && (
+            {allPossibleSizes.length > 0 && (
               <div className={classes.productFeatures}>
                 <h5>Sizes</h5>
                 <div className={classes.sizeButWrapper}>
-                  {sizes.map((size, index) => (
+                  {allPossibleSizes.map((size, index) => (
                     <button
                       key={index}
-                      onClick={() => setSelectedSize(size.title)}
+                      onClick={() => {
+                        if (size.available) {
+                          setSelectedSize(size.title)
+                        }
+                      }}
                       className={`${classes.sizeButton} ${selectedSize === size.title ? classes.selected : ''}`}
+                      disabled={!size.available}
                     >
                       {size.title}
                     </button>
