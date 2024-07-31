@@ -176,6 +176,12 @@ export interface Media {
   width?: number | null
   height?: number | null
 }
+
+export interface ProductImage {
+  id: string
+  image: String | Media | null
+}
+
 export interface Category {
   id: string
   title?: string | null
@@ -280,6 +286,7 @@ export interface Product {
         categories?: (string | Category)[] | null
         sizes?: Size[] | null
         color?: Color | null
+        productImages?: ProductImage[] | null
         limit?: number | null
         selectedDocs?:
           | {
@@ -396,7 +403,7 @@ export interface Product {
   categories?: (string | Category)[] | null
   sizes?: Size[] | null
   color?: Color | null
-  productImages?: (string | Media)[] | null
+  productImages?: ProductImage[] | null
   relatedProducts?: (string | Product)[] | null
   slug?: string | null
   skipSync?: boolean | null

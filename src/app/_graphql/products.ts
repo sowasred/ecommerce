@@ -26,15 +26,12 @@ export const PRODUCT = `
         ${SIZES}
         productImages {
           id
-          image {
-            url
-            mimeType
-            filename
-            width
-            height
-            alt
-            caption
-          }
+          caption
+          url
+          alt
+          width
+          height
+          
         }
         layout {
           ${CALL_TO_ACTION}
