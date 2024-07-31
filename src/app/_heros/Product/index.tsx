@@ -36,6 +36,7 @@ export const ProductHero: React.FC<{
   }
 
   const handleImageClick = (image: any) => {
+    console.log('image ozannn', image)
     setSelectedImage(image)
   }
 
@@ -88,21 +89,38 @@ export const ProductHero: React.FC<{
             <div className={classes.mediaMobile}>
               <div className={classes.mediaWrapper}>
                 {!selectedImage && <div className={classes.placeholder}>No image</div>}
-                {selectedImage && typeof selectedImage !== 'string' && (
+                {selectedImage && selectedImage.id ?(
+                  <img className={classes.image} src={selectedImage.url} alt={selectedImage.alt} />
+                ) : (
                   <Media imgClassName={classes.image} resource={selectedImage} fill />
+
                 )}
               </div>
             </div>
-            {/* Add product images for mobile view here  */}
+            {/* Add product images for mobile view here */}
             <div className={classes.productImagesMobile}>
               <div className={classes.carousel}>
-                {[metaImage, ...productImages.map(image => image.image)].map((image, index) => (
+                {[metaImage, ...productImages].map((image, index) => (
                   <div
                     key={index}
                     className={classes.carouselImageWrapper}
                     onClick={() => handleImageClick(image)}
                   >
-                    <Media imgClassName={classes.carouselImage} resource={image} />
+                    {image.id ? (
+                      <img
+                        className={classes.carouselImage}
+                        src={image.url}
+                        width={image.width}
+                        height={image.height}
+                        alt={image.alt}
+                      />
+                    ) : (
+                      <Media
+                        imgClassName={classes.carouselImage}
+                        resource={image}
+                        src={image.url}
+                      />
+                    )}
                   </div>
                 ))}
               </div>
@@ -158,7 +176,9 @@ export const ProductHero: React.FC<{
         <div className={classes.media}>
           <div className={classes.mediaWrapper}>
             {!selectedImage && <div className={classes.placeholder}>No image</div>}
-            {selectedImage && typeof selectedImage !== 'string' && (
+            {selectedImage && selectedImage.id ? (
+              <img className={classes.image} src={selectedImage.url} alt={selectedImage.alt} />
+            ) : (
               <Media imgClassName={classes.image} resource={selectedImage} fill />
             )}
           </div>
@@ -168,13 +188,27 @@ export const ProductHero: React.FC<{
           {/* Product Images below should be displayed above the mid break for desktop */}
           <div className={classes.productImages}>
             <div className={classes.carousel}>
-              {[metaImage, ...productImages.map(image => image.image)].map((image, index) => (
+              {[metaImage, ...productImages].map((image, index) => (
                 <div
                   key={index}
                   className={classes.carouselImageWrapper}
                   onClick={() => handleImageClick(image)}
                 >
-                  <Media imgClassName={classes.carouselImage} resource={image} />
+                  {image.id ? (
+                    <img
+                      className={classes.carouselImage}
+                      src={image.url}
+                      width={image.width}
+                      height={image.height}
+                      alt={image.alt}
+                    />
+                  ) : (
+                    <Media
+                      imgClassName={classes.carouselImage}
+                      resource={image}
+                      src={image.url}
+                    />
+                  )}
                 </div>
               ))}
             </div>

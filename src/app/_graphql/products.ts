@@ -31,7 +31,7 @@ export const PRODUCT = `
           alt
           width
           height
-          
+          mimeType
         }
         layout {
           ${CALL_TO_ACTION}
