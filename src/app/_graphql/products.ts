@@ -33,6 +33,16 @@ export const PRODUCT = `
           height
           mimeType
         }
+        hoverImage {
+          id
+          caption
+          url
+          alt
+          filename
+          width
+          height
+          mimeType
+        }
         layout {
           ${CALL_TO_ACTION}
           ${CONTENT}

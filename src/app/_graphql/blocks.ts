@@ -56,6 +56,16 @@ export const ARCHIVE_BLOCK = `
           id
           title
         }
+        hoverImage {
+          id
+          caption
+          url
+          alt
+          filename
+          width
+          height
+          mimeType
+        }
         ${META}
       }
     }
@@ -71,6 +81,16 @@ export const ARCHIVE_BLOCK = `
         sizes {
           id
           title
+        }
+        hoverImage {
+          id
+          caption
+          url
+          alt
+          filename
+          width
+          height
+          mimeType
         }
         ${CATEGORIES}
         ${META}

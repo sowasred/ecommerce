@@ -90,6 +90,12 @@ const Products: CollectionConfig = {
               hasMany: true,
             },
             {
+              name: 'hoverImage',
+              label: 'Hover Image',
+              type: 'relationship',
+              relationTo: 'media',
+            },
+            {
               name: 'stripeProductID',
               label: 'Stripe Product',
               type: 'text',

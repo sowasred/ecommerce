@@ -47,7 +47,7 @@ export const Card: React.FC<{
     showCategories,
     title: titleFromProps,
     doc,
-    doc: { slug, title, categories, meta, priceJSON } = {},
+    doc: { slug, title, categories, meta, priceJSON, hoverImage } = {},
     isRelatedProduct,
     className,
   } = props
@@ -73,7 +73,12 @@ export const Card: React.FC<{
       <Link href={href} className={classes.mediaWrapper}>
         {!metaImage && <div className={classes.placeholder}>No image</div>}
         {metaImage && typeof metaImage !== 'string' && (
-          <Media imgClassName={classes.image} resource={metaImage} fill />
+          <>
+            <Media imgClassName={classes.image} resource={metaImage} fill />
+            {hoverImage && typeof hoverImage !== 'string' && (
+              <img className={`${classes.image} ${classes.hoverImage}`} src={hoverImage.url} alt={hoverImage.alt} />
+            )}
+          </>
         )}
       </Link>
       <div className={classes.content}>

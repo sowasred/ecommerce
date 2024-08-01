@@ -287,6 +287,7 @@ export interface Product {
         sizes?: Size[] | null
         color?: Color | null
         productImages?: ProductImage[] | null
+        hoverImage?: ProductImage | null
         limit?: number | null
         selectedDocs?:
           | {
@@ -404,6 +405,7 @@ export interface Product {
   sizes?: Size[] | null
   color?: Color | null
   productImages?: ProductImage[] | null
+  hoverImage?: ProductImage | null
   relatedProducts?: (string | Product)[] | null
   slug?: string | null
   skipSync?: boolean | null

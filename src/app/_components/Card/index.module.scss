@@ -6,6 +6,32 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  .mediaWrapper {
+    text-decoration: none;
+    display: block;
+    position: relative;
+    aspect-ratio: 16 / 9;
+
+    &:hover .hoverImage {
+      opacity: 1;
+    }
+  }
+
+  .image, .hoverImage {
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+
+  .hoverImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
 }
 
 .relatedProductCard {
