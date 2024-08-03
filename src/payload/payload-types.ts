@@ -178,6 +178,8 @@ export interface Media {
 }
 
 export interface ProductImage {
+  alt: string
+  url: string
   id: string
   image: String | Media | null
 }
