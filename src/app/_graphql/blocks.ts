@@ -66,6 +66,8 @@ export const ARCHIVE_BLOCK = `
           height
           mimeType
         }
+        enableSale
+        salePercentage
         ${META}
       }
     }
@@ -92,6 +94,8 @@ export const ARCHIVE_BLOCK = `
           height
           mimeType
         }
+        enableSale
+        salePercentage
         ${CATEGORIES}
         ${META}
       }

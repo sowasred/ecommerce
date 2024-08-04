@@ -38,6 +38,18 @@
   max-width: 300px;
 }
 
+.saleBadge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  border-radius: 3px;
+  z-index: 1;
+}
+
 .content {
   padding: var(--base);
   flex-grow: 1;

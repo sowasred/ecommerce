@@ -290,6 +290,8 @@ export interface Product {
         color?: Color | null
         productImages?: ProductImage[] | null
         hoverImage?: ProductImage | null
+        enableSale?: boolean | null
+        salePercentage?: number | null
         limit?: number | null
         selectedDocs?:
           | {
@@ -382,6 +384,8 @@ export interface Product {
             relationTo?: 'products' | null
             categories?: (string | Category)[] | null
             sizes?: Size[] | null
+            enableSale?: boolean | null
+            salePercentage?: number | null
             color?: Color | null
             limit?: number | null
             selectedDocs?:
@@ -408,6 +412,8 @@ export interface Product {
   color?: Color | null
   productImages?: ProductImage[] | null
   hoverImage?: ProductImage | null
+  enableSale?: boolean | null
+  salePercentage?: number | null
   relatedProducts?: (string | Product)[] | null
   slug?: string | null
   skipSync?: boolean | null

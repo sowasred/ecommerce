@@ -43,6 +43,8 @@ export const PRODUCT = `
           height
           mimeType
         }
+        enableSale
+        salePercentage
         layout {
           ${CALL_TO_ACTION}
           ${CONTENT}

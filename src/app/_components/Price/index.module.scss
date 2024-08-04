@@ -2,6 +2,7 @@
 
 .actions {
   display: flex;
+  flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
   gap: calc(var(--base) / 2);
@@ -46,4 +47,13 @@
 
 .priceBreakdown {
   color: var(--theme-elevation-500);
+}
+.pricesWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.salePrice {
+  text-decoration: line-through;
 }

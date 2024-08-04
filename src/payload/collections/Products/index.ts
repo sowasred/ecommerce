@@ -129,6 +129,20 @@ const Products: CollectionConfig = {
               },
               blocks: [CallToAction, Content, MediaBlock, Archive],
             },
+            {
+              name: 'enableSale',
+              label: 'Enable Sale',
+              type: 'checkbox',
+              defaultValue: false,
+
+            },
+            {
+              name: 'salePercentage',
+              label: 'Sale Percentage',
+              type: 'number',
+              min: 1,
+              max: 99,
+            },
           ],
         },
       ],

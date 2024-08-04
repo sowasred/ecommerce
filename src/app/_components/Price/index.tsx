@@ -44,8 +44,10 @@ export const Price: React.FC<{
   quantity?: number
   showSizes?: boolean | false
   button?: 'addToCart' | 'removeFromCart' | false
+  enableSale?: boolean
+  salePercentage?: number
 }> = props => {
-  const { product, product: { priceJSON, sizes } = {}, button = 'addToCart', quantity, showSizes } = props
+  const { product, product: { priceJSON, sizes } = {}, button = 'addToCart', quantity, showSizes, enableSale, salePercentage } = props
 
   const [price, setPrice] = useState<{
     actualPrice: string
@@ -85,6 +87,12 @@ export const Price: React.FC<{
     available: availableSizes.includes(size)
   }))
 
+  const calculateOriginalPrice = (price: string, percentage: number): string => {
+    const actualPrice = parseFloat(price.replace('$', ''))
+    const discount = actualPrice * (percentage / 100)
+    return (actualPrice + discount).toFixed(2)
+  }
+
   return (
     <div className={classes.actionsWrapper}>
       {showSizes && allPossibleSizes.length > 0 && (
@@ -107,12 +115,20 @@ export const Price: React.FC<{
       )}
       <div className={classes.actions}>
         {typeof price?.actualPrice !== 'undefined' && price?.withQuantity !== '' && (
-          <div className={classes.price}>
-            <p>{price?.withQuantity}</p>
-            {quantity > 1 && (
-              <small className={classes.priceBreakdown}>{`${price.actualPrice} x ${quantity}`}</small>
+          <div className={classes.pricesWrapper}>
+            {enableSale && salePercentage && (
+              <div className={classes.salePrice}>
+                <small className={classes.salePrice}>{calculateOriginalPrice(price.actualPrice, salePercentage)}</small>
+              </div>
             )}
+            <div className={classes.price}>
+              <p>{price?.withQuantity}</p>
+              {quantity > 1 && (
+                <small className={classes.priceBreakdown}>{`${price.actualPrice} x ${quantity}`}</small>
+              )}
+            </div>
           </div>
+
         )}
         {button && button === 'addToCart' && (
           <AddToCartButton 
