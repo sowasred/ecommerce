@@ -156,7 +156,7 @@ export const ProductHero: React.FC<{
             )}
             <div className={classes.productFeatures}>
               <h5>Price</h5>
-              <Price product={product} button={false} />
+              <Price product={product} button={false} enableSale={enableSale} salePercentage={salePercentage} />
             </div>
           </div>
           <AddToCartButton product={product} selectedSize={selectedSize} className={classes.addToCartButton} itemHasSize={sizes && sizes.length > 0} />
