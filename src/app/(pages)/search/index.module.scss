@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: calc(100vh - 320px);
   }
   
   .searchInput {
@@ -12,22 +13,5 @@
     max-width: 600px;
   }
   
-  .results {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    min-height: calc(100vh - 530px);
-  }
-  
-  .product {
-    border: 1px solid #ccc;
-    padding: 20px;
-    width: calc(33.333% - 40px);
-    box-sizing: border-box;
-  }
-  
-  .product img {
-    max-width: 100%;
-    height: auto;
-  }
+
   

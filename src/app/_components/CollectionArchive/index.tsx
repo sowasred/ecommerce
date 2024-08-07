@@ -35,6 +35,9 @@ export type Props = {
   selectedDocs?: ArchiveBlockProps['selectedDocs']
   showPageRange?: boolean
   sort?: string
+  searchTerm?: string
+  setLoading?: (loading: boolean) => void
+  loading?: boolean
 }
 
 export const CollectionArchive: React.FC<Props> = props => {
@@ -50,6 +53,9 @@ export const CollectionArchive: React.FC<Props> = props => {
     selectedDocs,
     showPageRange,
     sort = '-createdAt',
+    searchTerm,
+    setLoading,
+    loading,
   } = props
 
   const [results, setResults] = useState<Result>({
@@ -97,7 +103,7 @@ export const CollectionArchive: React.FC<Props> = props => {
   useEffect(() => {
     let timer: NodeJS.Timeout = null
 
-    if (populateBy === 'collection' && !isRequesting.current) {
+    if ((populateBy === 'collection' || searchTerm) && !isRequesting.current) {
       isRequesting.current = true
 
       // hydrate the block with fresh content after first render
@@ -106,6 +112,7 @@ export const CollectionArchive: React.FC<Props> = props => {
       timer = setTimeout(() => {
         if (hasHydrated.current) {
           setIsLoading(true)
+          setLoading?.(true)
         }
       }, 500)
 
@@ -120,6 +127,13 @@ export const CollectionArchive: React.FC<Props> = props => {
               ? {
                   categories: {
                     in: categories,
+                  },
+                }
+              : {}),
+            ...(searchTerm
+              ? {
+                  title: {
+                    contains: searchTerm,
                   },
                 }
               : {}),
@@ -142,6 +156,7 @@ export const CollectionArchive: React.FC<Props> = props => {
           if (docs && Array.isArray(docs)) {
             setResults(json)
             setIsLoading(false)
+            setLoading?.(false)
             if (typeof onResultChange === 'function') {
               onResultChange(json)
             }
@@ -149,6 +164,7 @@ export const CollectionArchive: React.FC<Props> = props => {
         } catch (err) {
           console.warn(err) // eslint-disable-line no-console
           setIsLoading(false)
+          setLoading?.(false)
           setError(`Unable to load "${relationTo} archive" data at this time.`)
         }
 
@@ -162,7 +178,7 @@ export const CollectionArchive: React.FC<Props> = props => {
     return () => {
       if (timer) clearTimeout(timer)
     }
-  }, [page, categories, relationTo, onResultChange, sort, limit, populateBy])
+  }, [page, categories, relationTo, onResultChange, sort, limit, populateBy, searchTerm, setLoading])
 
   return (
     <div className={[classes.collectionArchive, className].filter(Boolean).join(' ')}>
@@ -177,6 +193,7 @@ export const CollectionArchive: React.FC<Props> = props => {
                 currentPage={results.page}
                 limit={limit}
                 totalDocs={results.totalDocs}
+                loading={loading}
               />
             </div>
           </Gutter>

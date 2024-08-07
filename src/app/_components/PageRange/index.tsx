@@ -1,5 +1,4 @@
 import React from 'react'
-
 import classes from './index.module.scss'
 
 const defaultLabels = {
@@ -24,6 +23,7 @@ export const PageRange: React.FC<{
   currentPage?: number
   limit?: number
   totalDocs?: number
+  loading?: boolean
 }> = props => {
   const {
     className,
@@ -32,8 +32,9 @@ export const PageRange: React.FC<{
     currentPage,
     limit,
     totalDocs,
+    loading,
   } = props
-
+  console.log('ozan loading', loading)
   let indexStart = (currentPage ? currentPage - 1 : 1) * (limit || 1) + 1
   if (totalDocs && indexStart > totalDocs) indexStart = 0
 
@@ -45,7 +46,7 @@ export const PageRange: React.FC<{
 
   return (
     <div className={[className, classes.pageRange].filter(Boolean).join(' ')}>
-      {(typeof totalDocs === 'undefined' || totalDocs === 0) && 'Search produced no results.'}
+      {!loading && (typeof totalDocs === 'undefined' || totalDocs === 0) && 'Search produced no results.'}
       {typeof totalDocs !== 'undefined' &&
         totalDocs > 0 &&
         `Showing ${indexStart}${indexStart > 0 ? ` - ${indexEnd}` : ''} of ${totalDocs} ${
