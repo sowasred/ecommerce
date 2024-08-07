@@ -24,6 +24,8 @@ export const ProductHero: React.FC<{
     categories,
     color,
     sizes,
+    enableSale,
+    salePercentage,
     meta: { image: metaImage, description } = {},
   } = product
 
@@ -93,8 +95,8 @@ export const ProductHero: React.FC<{
                   <img className={classes.image} src={selectedImage.url} alt={selectedImage.alt} />
                 ) : (
                   <Media imgClassName={classes.image} resource={selectedImage} fill />
-
                 )}
+                {enableSale && salePercentage && (<span className={classes.saleBadge}>{salePercentage}% off</span>)}
               </div>
             </div>
             {/* Add product images for mobile view here */}
@@ -181,6 +183,7 @@ export const ProductHero: React.FC<{
             ) : (
               <Media imgClassName={classes.image} resource={selectedImage} fill />
             )}
+            {enableSale && salePercentage && (<span className={classes.saleBadge}>{salePercentage}% off</span>)}
           </div>
           {selectedImage && typeof selectedImage !== 'string' && selectedImage?.caption && (
             <RichText content={selectedImage.caption} className={classes.caption} />
