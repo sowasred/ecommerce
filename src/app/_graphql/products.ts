@@ -79,3 +79,54 @@ export const PRODUCT_PAYWALL = `
     }
   }
 `
+
+export const SEARCH_PRODUCTS = `
+  query SearchProducts($searchTerm: String!) {
+    Products(where: { title: { contains: $searchTerm } }, limit: 100) {
+      docs {
+        id
+        title
+        stripeProductID
+        ${CATEGORIES}
+        ${COLOR}
+        ${SIZES}
+        productImages {
+          id
+          caption
+          url
+          alt
+          width
+          height
+          mimeType
+        }
+        hoverImage {
+          id
+          caption
+          url
+          alt
+          filename
+          width
+          height
+          mimeType
+        }
+        enableSale
+        salePercentage
+        layout {
+          ${CALL_TO_ACTION}
+          ${CONTENT}
+          ${MEDIA_BLOCK}
+          ${ARCHIVE_BLOCK}
+        }
+        priceJSON
+        enablePaywall
+        relatedProducts {
+          id
+          slug
+          title
+          ${META}
+        }
+        ${META}
+      }
+    }
+  }
+`

@@ -3,7 +3,7 @@ import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import type { Config } from '../../payload/payload-types'
 import { ORDERS } from '../_graphql/orders'
 import { PAGES } from '../_graphql/pages'
-import { PRODUCTS } from '../_graphql/products'
+import { PRODUCTS, SEARCH_PRODUCTS } from '../_graphql/products'
 import { GRAPHQL_API_URL } from './shared'
 import { payloadToken } from './token'
 
@@ -14,6 +14,7 @@ const queryMap = {
   },
   products: {
     query: PRODUCTS,
+    searchQuery: SEARCH_PRODUCTS,
     key: 'Products',
   },
   orders: {
@@ -25,6 +26,7 @@ const queryMap = {
 export const fetchDocs = async <T>(
   collection: keyof Config['collections'],
   draft?: boolean,
+  searchTerm?: string,
 ): Promise<T[]> => {
   if (!queryMap[collection]) throw new Error(`Collection ${collection} not found`)
 
@@ -44,7 +46,8 @@ export const fetchDocs = async <T>(
     cache: 'no-store',
     next: { tags: [collection] },
     body: JSON.stringify({
-      query: queryMap[collection].query,
+      query: searchTerm ? queryMap[collection].searchQuery : queryMap[collection].query,
+      variables: searchTerm ? { searchTerm } : {},
     }),
   })
     ?.then(res => res.json())
