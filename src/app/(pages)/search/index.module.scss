@@ -16,6 +16,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    min-height: calc(100vh - 530px);
   }
   
   .product {

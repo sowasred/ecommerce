@@ -36,6 +36,9 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
           <Link href="/create-account">Create Account</Link>
         </React.Fragment>
       )}
+      <React.Fragment>
+        <Link href="/search">Search</Link>
+      </React.Fragment>
     </nav>
   )
 }
