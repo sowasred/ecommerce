@@ -46,8 +46,9 @@ export const Price: React.FC<{
   button?: 'addToCart' | 'removeFromCart' | false
   enableSale?: boolean
   salePercentage?: number
+  soldOut?: boolean
 }> = props => {
-  const { product, product: { priceJSON, sizes } = {}, button = 'addToCart', quantity, showSizes, enableSale, salePercentage } = props
+  const { product, product: { priceJSON, sizes } = {}, button = 'addToCart', quantity, showSizes, enableSale, salePercentage, soldOut } = props
 
   const [price, setPrice] = useState<{
     actualPrice: string
@@ -94,7 +95,7 @@ export const Price: React.FC<{
   }
 
   return (
-    <div className={classes.actionsWrapper}>
+    <div className={`${classes.actionsWrapper} ${soldOut ? classes.soldOut : ''}`}>
       {showSizes && allPossibleSizes.length > 0 && (
         <div className={classes.sizes}>
           {allPossibleSizes.map((size, index) => (
@@ -128,18 +129,23 @@ export const Price: React.FC<{
               )}
             </div>
           </div>
-
         )}
-        {button && button === 'addToCart' && (
-          <AddToCartButton 
-            product={product} 
-            appearance="default" 
-            selectedSize={selectedSize} 
-            onAddToCart={handleResetSize} 
-            itemHasSize={sizes.length > 0} 
-          />
+        {soldOut ? (
+          <div className={classes.soldOutMessage}>Sold Out</div>
+        ) : (
+          <>
+            {button && button === 'addToCart' && (
+              <AddToCartButton 
+                product={product} 
+                appearance="default" 
+                selectedSize={selectedSize} 
+                onAddToCart={handleResetSize} 
+                itemHasSize={sizes.length > 0} 
+              />
+            )}
+            {button && button === 'removeFromCart' && <RemoveFromCartButton product={product} />}
+          </>
         )}
-        {button && button === 'removeFromCart' && <RemoveFromCartButton product={product} />}
       </div>
     </div>
   )

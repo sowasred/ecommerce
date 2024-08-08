@@ -50,6 +50,18 @@
   z-index: 1;
 }
 
+.soldOutBadge {
+  position: absolute;
+  top: 40px; // Position below the sale badge
+  left: 10px;
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  border-radius: 3px;
+  z-index: 1;
+}
+
 .content {
   padding: var(--base);
   flex-grow: 1;

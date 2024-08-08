@@ -143,6 +143,12 @@ const Products: CollectionConfig = {
               min: 1,
               max: 99,
             },
+            {
+              name: 'soldOut',
+              label: 'Product Sold Out ** (This will prevent the product from being sold)',
+              type: 'checkbox',
+              defaultValue: false,
+            },
           ],
         },
       ],

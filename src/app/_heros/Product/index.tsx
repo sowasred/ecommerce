@@ -26,6 +26,7 @@ export const ProductHero: React.FC<{
     sizes,
     enableSale,
     salePercentage,
+    soldOut,
     meta: { image: metaImage, description } = {},
   } = product
 
@@ -61,7 +62,7 @@ export const ProductHero: React.FC<{
 
   return (
     <Fragment>
-      <Gutter className={classes.productHero}>
+      <Gutter className={`${classes.productHero} ${soldOut ? classes.soldOut : ''}`}>
         <div className={classes.content}>
           <div className={classes.categories}>
             {categories?.map((category, index) => {
@@ -97,6 +98,7 @@ export const ProductHero: React.FC<{
                   <Media imgClassName={classes.image} resource={selectedImage} fill />
                 )}
                 {enableSale && salePercentage && (<span className={classes.saleBadge}>{salePercentage}% off</span>)}
+                {soldOut && (<span className={classes.soldOutBadge}>Sold Out</span>)}
               </div>
             </div>
             {/* Add product images for mobile view here */}
@@ -159,7 +161,20 @@ export const ProductHero: React.FC<{
               <Price product={product} button={false} enableSale={enableSale} salePercentage={salePercentage} />
             </div>
           </div>
-          <AddToCartButton product={product} selectedSize={selectedSize} className={classes.addToCartButton} itemHasSize={sizes && sizes.length > 0} />
+          {soldOut && (
+            <span className={classes.soldOutMessage}>
+              Sold Out
+            </span>
+          )}
+          {!soldOut && (
+            <AddToCartButton
+              product={product}
+              appearance="default"
+              selectedSize={selectedSize}
+              onAddToCart={() => setSelectedSize(null)}
+              itemHasSize={sizes.length > 0}
+            />
+          )}
           <div id='productVariations'>
             <Blocks
               disableTopPadding
@@ -184,6 +199,7 @@ export const ProductHero: React.FC<{
               <Media imgClassName={classes.image} resource={selectedImage} fill />
             )}
             {enableSale && salePercentage && (<span className={classes.saleBadge}>{salePercentage}% off</span>)}
+            {soldOut && (<span className={classes.soldOutBadge}>Sold Out</span>)}
           </div>
           {selectedImage && typeof selectedImage !== 'string' && selectedImage?.caption && (
             <RichText content={selectedImage.caption} className={classes.caption} />

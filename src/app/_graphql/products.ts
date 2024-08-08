@@ -45,6 +45,7 @@ export const PRODUCT = `
         }
         enableSale
         salePercentage
+        soldOut
         layout {
           ${CALL_TO_ACTION}
           ${CONTENT}
@@ -111,6 +112,7 @@ export const SEARCH_PRODUCTS = `
         }
         enableSale
         salePercentage
+        soldout
         layout {
           ${CALL_TO_ACTION}
           ${CONTENT}

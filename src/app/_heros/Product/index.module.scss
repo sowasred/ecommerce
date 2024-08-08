@@ -4,6 +4,10 @@
   display: flex;
   gap: calc(var(--base) * 2);
 
+  // &.soldOut {
+  //   opacity: 0.8
+  // }
+
   @include mid-break {
     flex-direction: column;
     gap: var(--base);
@@ -79,6 +83,7 @@
 
 .mediaMobile {
   display: none;
+  position: relative;
 
   @include mid-break {
     display: block;
@@ -167,6 +172,24 @@
   top: 10px;
   left: 10px;
   background-color: red;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  z-index: 1;
+}
+.soldOut button {
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: gray;
+  opacity: 0.7;
+}
+
+.soldOutBadge {
+  position: absolute;
+  top: 40px;
+  left: 10px;
+  background-color: gray;
   color: white;
   padding: 5px 10px;
   border-radius: 3px;

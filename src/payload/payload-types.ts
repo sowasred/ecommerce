@@ -292,6 +292,7 @@ export interface Product {
         hoverImage?: ProductImage | null
         enableSale?: boolean | null
         salePercentage?: number | null
+        soldOut?: boolean | null
         limit?: number | null
         selectedDocs?:
           | {
@@ -386,6 +387,7 @@ export interface Product {
             sizes?: Size[] | null
             enableSale?: boolean | null
             salePercentage?: number | null
+            soldOut?: boolean | null
             color?: Color | null
             limit?: number | null
             selectedDocs?:
@@ -414,6 +416,7 @@ export interface Product {
   hoverImage?: ProductImage | null
   enableSale?: boolean | null
   salePercentage?: number | null
+  soldOut?: boolean | null
   relatedProducts?: (string | Product)[] | null
   slug?: string | null
   skipSync?: boolean | null

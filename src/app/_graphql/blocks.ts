@@ -68,6 +68,7 @@ export const ARCHIVE_BLOCK = `
         }
         enableSale
         salePercentage
+        soldOut
         ${META}
       }
     }
@@ -96,6 +97,7 @@ export const ARCHIVE_BLOCK = `
         }
         enableSale
         salePercentage
+        soldOut
         ${CATEGORIES}
         ${META}
       }
