@@ -1,22 +1,15 @@
 "use client"
-
 import React, { Fragment, useState } from 'react'
-import Link from 'next/link'
-
 import { Product } from '../../../payload/payload-types'
 import { AddToCartButton } from '../../_components/AddToCartButton'
 import { Gutter } from '../../_components/Gutter'
 import { Media } from '../../_components/Media'
-import { Message } from '../../_components/Message'
 import { Price } from '../../_components/Price'
 import RichText from '../../_components/RichText'
 import { Blocks } from '../../_components/Blocks'
-
 import classes from './index.module.scss'
 
-export const ProductHero: React.FC<{
-  product: Product
-}> = ({ product }) => {
+export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
   const {
     id,
     stripeProductID,
@@ -27,20 +20,29 @@ export const ProductHero: React.FC<{
     enableSale,
     salePercentage,
     soldOut,
+    sizeAndFit,
     meta: { image: metaImage, description } = {},
   } = product
 
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
   const [productImages, setProductImages] = useState<any>(product.productImages)
   const [selectedImage, setSelectedImage] = useState<any | null>(metaImage || null)
+  const [showSizeAndFit, setShowSizeAndFit] = useState<boolean>(false)
 
   if (!stripeProductID) {
     console.error(`Product ${id} is not connected to Stripe.`)
   }
 
   const handleImageClick = (image: any) => {
-    console.log('image ozannn', image)
     setSelectedImage(image)
+  }
+
+  const handleSizeAndFitClick = () => {
+    setShowSizeAndFit(true)
+  }
+
+  const closeSizeAndFit = () => {
+    setShowSizeAndFit(false)
   }
 
   const possibleSizes = ['XS', 'S', 'M', 'L', 'XL']
@@ -68,9 +70,7 @@ export const ProductHero: React.FC<{
             {categories?.map((category, index) => {
               if (typeof category === 'object' && category !== null) {
                 const { title: categoryTitle } = category
-
                 const titleToUse = categoryTitle || 'Untitled category'
-
                 const isLast = index === categories.length - 1
 
                 return (
@@ -80,7 +80,6 @@ export const ProductHero: React.FC<{
                   </Fragment>
                 )
               }
-
               return null
             })}
           </div>
@@ -101,7 +100,6 @@ export const ProductHero: React.FC<{
                 {soldOut && (<span className={classes.soldOutBadge}>Sold Out</span>)}
               </div>
             </div>
-            {/* Add product images for mobile view here */}
             <div className={classes.productImagesMobile}>
               <div className={classes.carousel}>
                 {[metaImage, ...productImages].map((image, index) => (
@@ -156,6 +154,11 @@ export const ProductHero: React.FC<{
                 </div>
               </div>
             )}
+            {sizeAndFit && (
+              <button className={classes.sizeAndFitButton} onClick={handleSizeAndFitClick}>
+                Size & Fit
+              </button>
+            )}
             <div className={classes.productFeatures}>
               <h5>Price</h5>
               <Price product={product} button={false} enableSale={enableSale} salePercentage={salePercentage} />
@@ -200,11 +203,13 @@ export const ProductHero: React.FC<{
             )}
             {enableSale && salePercentage && (<span className={classes.saleBadge}>{salePercentage}% off</span>)}
             {soldOut && (<span className={classes.soldOutBadge}>Sold Out</span>)}
+            {sizeAndFit && typeof sizeAndFit !== 'string' && (
+              <img className={`${classes.image} ${classes.sizeAndFitImage}`} src={sizeAndFit.url} alt={sizeAndFit.alt} />
+            )}
           </div>
           {selectedImage && typeof selectedImage !== 'string' && selectedImage?.caption && (
             <RichText content={selectedImage.caption} className={classes.caption} />
           )}
-          {/* Product Images below should be displayed above the mid break for desktop */}
           <div className={classes.productImages}>
             <div className={classes.carousel}>
               {[metaImage, ...productImages].map((image, index) => (
@@ -234,6 +239,13 @@ export const ProductHero: React.FC<{
           </div>
         </div>
       </Gutter>
+      {showSizeAndFit && (
+        <div className={classes.sizeAndFitOverlay} onClick={closeSizeAndFit}>
+          <div className={classes.sizeAndFitContent}>
+            <img className={classes.sizeAndFitPopupImage} src={sizeAndFit.url} alt={sizeAndFit.alt} />
+          </div>
+        </div>
+      )}
     </Fragment>
   )
 }
