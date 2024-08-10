@@ -66,6 +66,17 @@ export const ARCHIVE_BLOCK = `
           height
           mimeType
         }
+        sizeAndFit
+        {
+          id
+          caption
+          url
+          alt
+          filename
+          width
+          height
+          mimeType
+        }
         enableSale
         salePercentage
         soldOut
@@ -86,6 +97,17 @@ export const ARCHIVE_BLOCK = `
           title
         }
         hoverImage {
+          id
+          caption
+          url
+          alt
+          filename
+          width
+          height
+          mimeType
+        }
+        sizeAndFit
+        {
           id
           caption
           url

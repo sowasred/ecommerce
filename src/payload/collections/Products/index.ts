@@ -90,6 +90,12 @@ const Products: CollectionConfig = {
               hasMany: true,
             },
             {
+              name: 'sizeAndFit',
+              label: 'Size & Fit',
+              type: 'relationship',
+              relationTo: 'media',
+            },
+            {
               name: 'hoverImage',
               label: 'Hover Image',
               type: 'relationship',

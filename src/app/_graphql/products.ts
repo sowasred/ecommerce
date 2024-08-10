@@ -43,6 +43,16 @@ export const PRODUCT = `
           height
           mimeType
         }
+        sizeAndFit {
+          id
+          caption
+          url
+          alt
+          filename
+          width
+          height
+          mimeType
+        }
         enableSale
         salePercentage
         soldOut
@@ -101,6 +111,16 @@ export const SEARCH_PRODUCTS = `
           mimeType
         }
         hoverImage {
+          id
+          caption
+          url
+          alt
+          filename
+          width
+          height
+          mimeType
+        }
+        sizeAndFit {
           id
           caption
           url

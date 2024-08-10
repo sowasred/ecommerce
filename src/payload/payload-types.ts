@@ -290,6 +290,7 @@ export interface Product {
         color?: Color | null
         productImages?: ProductImage[] | null
         hoverImage?: ProductImage | null
+        sizeAndFit?: ProductImage | null
         enableSale?: boolean | null
         salePercentage?: number | null
         soldOut?: boolean | null
@@ -414,6 +415,7 @@ export interface Product {
   color?: Color | null
   productImages?: ProductImage[] | null
   hoverImage?: ProductImage | null
+  sizeAndFit?: ProductImage | null
   enableSale?: boolean | null
   salePercentage?: number | null
   soldOut?: boolean | null
