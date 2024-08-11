@@ -517,6 +517,8 @@ export interface PayloadMigration {
 export interface Settings {
   id: string
   productsPage?: (string | null) | Page
+  topBannerText?: string | null
+  topBannerPage?: (string | null) | Page
   updatedAt?: string | null
   createdAt?: string | null
 }

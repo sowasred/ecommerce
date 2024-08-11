@@ -33,6 +33,10 @@ export const SETTINGS = `
     productsPage {
       slug
     }
+    topBannerText
+    topBannerPage {
+      slug
+    }
   }
 `
 

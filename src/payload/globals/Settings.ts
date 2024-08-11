@@ -18,5 +18,16 @@ export const Settings: GlobalConfig = {
       relationTo: 'pages',
       label: 'Products page',
     },
+    {
+      name: 'topBannerText',
+      type: 'text',
+      label: 'Top Banner Text',
+    },
+    {
+      name: 'topBannerPage',
+      type: 'relationship',
+      relationTo: 'pages',
+      label: 'Top Banner',
+    }
   ],
 }

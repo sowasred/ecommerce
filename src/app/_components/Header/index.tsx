@@ -5,18 +5,21 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { Header } from '../../../payload/payload-types'
-import { fetchHeader } from '../../_api/fetchGlobals'
+import { Header, Settings } from '../../../payload/payload-types'
+import { fetchHeader, fetchSettings } from '../../_api/fetchGlobals'
 import { Gutter } from '../Gutter'
 import { HeaderNav } from './Nav'
 
 import classes from './index.module.scss'
+import { TopBanner } from '../TopBanner'
 
 export async function Header() {
   let header: Header | null = null
+  let settings: Settings | null = null
 
   try {
     header = await fetchHeader()
+    settings = await fetchSettings()
   } catch (error) {
     // When deploying this template on Payload Cloud, this page needs to build before the APIs are live
     // So swallow the error here and simply render the header without nav items if one occurs
@@ -27,6 +30,7 @@ export async function Header() {
   return (
     <>
       <header className={classes.header}>
+        <TopBanner text={settings?.topBannerText} link={settings?.topBannerPage?.slug} />
         <Gutter className={classes.wrap}>
           <Link href="/">
             {/* Cannot use the `<picture>` element here with `srcSet`
