@@ -108,8 +108,8 @@ export const CheckoutPage: React.FC<{
               const isLast = index === (cart?.items?.length || 0) - 1
 
               const metaImage = meta?.image
-              if(!stripeProductID) {
-                console.error('stripeProductID is not defined')
+              if (!stripeProductID) {
+                console.error('stripeProductID is not defined') // eslint-disable-line no-console
               }
               return (
                 <Fragment key={index}>

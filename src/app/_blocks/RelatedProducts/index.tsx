@@ -20,9 +20,7 @@ export const RelatedProducts: React.FC<RelatedProductsProps> = props => {
 
   return (
     <div className={classes.relatedProducts}>
-      {introContent && (
-        <RichText content={introContent} />
-      )}
+      {introContent && <RichText content={introContent} />}
       <div className={classes.grid}>
         {docs?.map((doc, index) => {
           if (typeof doc === 'string') return null

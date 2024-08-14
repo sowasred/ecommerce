@@ -178,7 +178,17 @@ export const CollectionArchive: React.FC<Props> = props => {
     return () => {
       if (timer) clearTimeout(timer)
     }
-  }, [page, categories, relationTo, onResultChange, sort, limit, populateBy, searchTerm, setLoading])
+  }, [
+    page,
+    categories,
+    relationTo,
+    onResultChange,
+    sort,
+    limit,
+    populateBy,
+    searchTerm,
+    setLoading,
+  ])
 
   return (
     <div className={[classes.collectionArchive, className].filter(Boolean).join(' ')}>

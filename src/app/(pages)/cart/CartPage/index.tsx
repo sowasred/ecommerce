@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react'
 import Link from 'next/link'
+
 import { Page, Settings } from '../../../../payload/payload-types'
 import { Button } from '../../../_components/Button'
 import { HR } from '../../../_components/HR'
@@ -65,8 +66,9 @@ export const CartPage: React.FC<{
           ) : (
             <div className={classes.items}>
               <div className={classes.itemsTotal}>
-                {`There ${cart?.items?.length === 1 ? 'is' : 'are'} ${cart?.items?.length} item${cart?.items?.length === 1 ? '' : 's'
-                  } in your cart.`}
+                {`There ${cart?.items?.length === 1 ? 'is' : 'are'} ${cart?.items?.length} item${
+                  cart?.items?.length === 1 ? '' : 's'
+                } in your cart.`}
                 {!user && (
                   <Fragment>
                     {' '}
@@ -86,8 +88,8 @@ export const CartPage: React.FC<{
 
                   const isLast = index === (cart?.items?.length || 0) - 1
                   const metaImage = meta?.image
-                  if(!stripeProductID) {
-                    console.error('stripeProductID is not defined')
+                  if (!stripeProductID) {
+                    console.error('stripeProductID is not defined') // eslint-disable-line no-console
                   }
 
                   return (
@@ -119,22 +121,20 @@ export const CartPage: React.FC<{
                                 max={99}
                                 min={1}
                                 value={quantity ?? ''}
-                                onChange={(e) => handleQuantityChange(e, product, size)}
-                                onBlur={(e) => {
+                                onChange={e => handleQuantityChange(e, product, size)}
+                                onBlur={e => {
                                   if (e.target.value === '') {
                                     handleQuantityChange({ target: { value: 1 } }, product, size)
                                   }
                                 }}
                               />
                             </label>
-                            {
-                              size && (
-                                <label>
-                                  Size: &nbsp;
-                                  <span>{size}</span>
-                                </label>
-                              )
-                            }
+                            {size && (
+                              <label>
+                                Size: &nbsp;
+                                <span>{size}</span>
+                              </label>
+                            )}
                             <RemoveFromCartButton product={product} selectedSize={size} />
                           </div>
                           <Price product={product} button={false} quantity={quantity} />

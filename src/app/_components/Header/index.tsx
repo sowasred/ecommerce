@@ -8,10 +8,10 @@ import Link from 'next/link'
 import { Header, Settings } from '../../../payload/payload-types'
 import { fetchHeader, fetchSettings } from '../../_api/fetchGlobals'
 import { Gutter } from '../Gutter'
+import { TopBanner } from '../TopBanner'
 import { HeaderNav } from './Nav'
 
 import classes from './index.module.scss'
-import { TopBanner } from '../TopBanner'
 
 export async function Header() {
   let header: Header | null = null

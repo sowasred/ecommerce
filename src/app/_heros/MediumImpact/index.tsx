@@ -12,7 +12,7 @@ export const MediumImpactHero: React.FC<Page['hero']> = props => {
   const { richText, media, links } = props
   const firstLink = links?.[0]?.link
 
-  // MediumImpact is being used for landing page 
+  // MediumImpact is being used for landing page
   return (
     <div className={classes.heroWrapper}>
       <div className={classes.background}>
@@ -30,12 +30,12 @@ export const MediumImpactHero: React.FC<Page['hero']> = props => {
         )} */}
       </div>
       <div className={classes.media}>
-        {typeof media === 'object' && 
+        {typeof media === 'object' && (
           <div className={classes.mediaLinkWrap}>
             <Media className={classes.media} resource={media} />
             <CMSLink className={classes.mediaLink} {...firstLink} />
           </div>
-        }
+        )}
       </div>
     </div>
   )

@@ -1,8 +1,10 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { Gutter } from '../../_components/Gutter'
+import React, { useEffect, useState } from 'react'
+
 import { CollectionArchive } from '../../_components/CollectionArchive'
+import { Gutter } from '../../_components/Gutter'
+
 import classes from './index.module.scss'
 
 export default function Search() {
@@ -30,7 +32,7 @@ export default function Search() {
       <input
         type="text"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={e => setSearchTerm(e.target.value)}
         placeholder="Search for products..."
         className={classes.searchInput}
       />

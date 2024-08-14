@@ -77,8 +77,8 @@ export default async function Order({ params: { id } }) {
             const isLast = index === (order?.items?.length || 0) - 1
 
             const metaImage = meta?.image
-            if(!stripeProductID){
-              console.error(`Product ${id} is not connected to Stripe.`)
+            if (!stripeProductID) {
+              console.error(`Product ${id} is not connected to Stripe.`) // eslint-disable-line no-console
             }
 
             return (

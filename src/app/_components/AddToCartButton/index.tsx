@@ -18,7 +18,15 @@ export const AddToCartButton: React.FC<{
   onAddToCart?: () => void
   itemHasSize: boolean
 }> = props => {
-  const { product, selectedSize, quantity = 1, className, appearance = 'primary', onAddToCart, itemHasSize } = props
+  const {
+    product,
+    selectedSize,
+    quantity = 1,
+    className,
+    appearance = 'primary',
+    onAddToCart,
+    itemHasSize,
+  } = props
 
   const { cart, addItemToCart, isProductInCart, hasInitializedCart } = useCart()
 
@@ -26,7 +34,7 @@ export const AddToCartButton: React.FC<{
   const router = useRouter()
 
   useEffect(() => {
-    if(selectedSize) {
+    if (selectedSize) {
       setWarning(null)
     }
     setIsInCart(isProductInCart(product, selectedSize))
@@ -70,11 +78,7 @@ export const AddToCartButton: React.FC<{
         ]
           .filter(Boolean)
           .join(' ')}
-        onClick={
-          !isInCart
-            ? handleAddToCart
-            : undefined
-        }
+        onClick={!isInCart ? handleAddToCart : undefined}
       />
     </div>
   )

@@ -28,6 +28,6 @@ export const Settings: GlobalConfig = {
       type: 'relationship',
       relationTo: 'pages',
       label: 'Top Banner',
-    }
+    },
   ],
 }

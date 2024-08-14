@@ -48,7 +48,16 @@ export const Price: React.FC<{
   salePercentage?: number
   soldOut?: boolean
 }> = props => {
-  const { product, product: { priceJSON, sizes } = {}, button = 'addToCart', quantity, showSizes, enableSale, salePercentage, soldOut } = props
+  const {
+    product,
+    product: { priceJSON, sizes } = {},
+    button = 'addToCart',
+    quantity,
+    showSizes,
+    enableSale,
+    salePercentage,
+    soldOut,
+  } = props
 
   const [price, setPrice] = useState<{
     actualPrice: string
@@ -74,7 +83,7 @@ export const Price: React.FC<{
   const possibleSizes = ['XS', 'S', 'M', 'L', 'XL']
   const possibleSizes2 = ['28', '30', '32', '34', '36', '38', '40', '42', '44']
 
-  const decidePossibleSizes = (sizes) => {
+  const decidePossibleSizes = sizes => {
     if (sizes.length === 0) return []
     if (possibleSizes.includes(sizes[0].title)) return possibleSizes
     if (possibleSizes2.includes(sizes[0].title)) return possibleSizes2
@@ -85,7 +94,7 @@ export const Price: React.FC<{
 
   const allPossibleSizes = decidePossibleSizes(sizes).map(size => ({
     title: size,
-    available: availableSizes.includes(size)
+    available: availableSizes.includes(size),
   }))
 
   const calculateOriginalPrice = (price: string, percentage: number): string => {
@@ -101,7 +110,9 @@ export const Price: React.FC<{
           {allPossibleSizes.map((size, index) => (
             <button
               key={index}
-              className={`${classes.sizeButton} ${selectedSize === size.title ? classes.selected : ''}`}
+              className={`${classes.sizeButton} ${
+                selectedSize === size.title ? classes.selected : ''
+              }`}
               onClick={() => {
                 if (size.available) {
                   setSelectedSize(size.title)
@@ -119,13 +130,17 @@ export const Price: React.FC<{
           <div className={classes.pricesWrapper}>
             {enableSale && salePercentage && (
               <div className={classes.salePrice}>
-                <small className={classes.salePrice}>{calculateOriginalPrice(price.actualPrice, salePercentage)}</small>
+                <small className={classes.salePrice}>
+                  {calculateOriginalPrice(price.actualPrice, salePercentage)}
+                </small>
               </div>
             )}
             <div className={classes.price}>
               <p>{price?.withQuantity}</p>
               {quantity > 1 && (
-                <small className={classes.priceBreakdown}>{`${price.actualPrice} x ${quantity}`}</small>
+                <small
+                  className={classes.priceBreakdown}
+                >{`${price.actualPrice} x ${quantity}`}</small>
               )}
             </div>
           </div>
@@ -135,12 +150,12 @@ export const Price: React.FC<{
         ) : (
           <>
             {button && button === 'addToCart' && (
-              <AddToCartButton 
-                product={product} 
-                appearance="default" 
-                selectedSize={selectedSize} 
-                onAddToCart={handleResetSize} 
-                itemHasSize={sizes.length > 0} 
+              <AddToCartButton
+                product={product}
+                appearance="default"
+                selectedSize={selectedSize}
+                onAddToCart={handleResetSize}
+                itemHasSize={sizes.length > 0}
               />
             )}
             {button && button === 'removeFromCart' && <RemoveFromCartButton product={product} />}

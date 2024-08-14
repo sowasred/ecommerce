@@ -1,12 +1,14 @@
-"use client"
+'use client'
 import React, { Fragment, useState } from 'react'
+
 import { Product } from '../../../payload/payload-types'
 import { AddToCartButton } from '../../_components/AddToCartButton'
+import { Blocks } from '../../_components/Blocks'
 import { Gutter } from '../../_components/Gutter'
 import { Media } from '../../_components/Media'
 import { Price } from '../../_components/Price'
 import RichText from '../../_components/RichText'
-import { Blocks } from '../../_components/Blocks'
+
 import classes from './index.module.scss'
 
 export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
@@ -30,7 +32,7 @@ export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
   const [showSizeAndFit, setShowSizeAndFit] = useState<boolean>(false)
 
   if (!stripeProductID) {
-    console.error(`Product ${id} is not connected to Stripe.`)
+    console.error(`Product ${id} is not connected to Stripe.`) // eslint-disable-line no-console
   }
 
   const handleImageClick = (image: any) => {
@@ -48,7 +50,7 @@ export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
   const possibleSizes = ['XS', 'S', 'M', 'L', 'XL']
   const possibleSizes2 = ['28', '30', '32', '34', '36', '38', '40', '42', '44']
 
-  const decidePossibleSizes = (sizes) => {
+  const decidePossibleSizes = sizes => {
     if (sizes.length === 0) return []
     if (possibleSizes.includes(sizes[0].title)) return possibleSizes
     if (possibleSizes2.includes(sizes[0].title)) return possibleSizes2
@@ -59,7 +61,7 @@ export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
 
   const allPossibleSizes = decidePossibleSizes(sizes).map(size => ({
     title: size,
-    available: availableSizes.includes(size)
+    available: availableSizes.includes(size),
   }))
 
   return (
@@ -85,19 +87,19 @@ export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
           </div>
           <h1 className={classes.title}>{title.split('-')[0]}</h1>
           <div className={classes.productInfo}>
-            <p className={classes.description}>
-              {`${description ? `${description} ` : ''}`}
-            </p>
+            <p className={classes.description}>{`${description ? `${description} ` : ''}`}</p>
             <div className={classes.mediaMobile}>
               <div className={classes.mediaWrapper}>
                 {!selectedImage && <div className={classes.placeholder}>No image</div>}
-                {selectedImage && selectedImage.id ?(
+                {selectedImage && selectedImage.id ? (
                   <img className={classes.image} src={selectedImage.url} alt={selectedImage.alt} />
                 ) : (
                   <Media imgClassName={classes.image} resource={selectedImage} fill />
                 )}
-                {enableSale && salePercentage && (<span className={classes.saleBadge}>{salePercentage}% off</span>)}
-                {soldOut && (<span className={classes.soldOutBadge}>Sold Out</span>)}
+                {enableSale && salePercentage && (
+                  <span className={classes.saleBadge}>{salePercentage}% off</span>
+                )}
+                {soldOut && <span className={classes.soldOutBadge}>Sold Out</span>}
               </div>
             </div>
             <div className={classes.productImagesMobile}>
@@ -145,7 +147,9 @@ export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
                           setSelectedSize(size.title)
                         }
                       }}
-                      className={`${classes.sizeButton} ${selectedSize === size.title ? classes.selected : ''}`}
+                      className={`${classes.sizeButton} ${
+                        selectedSize === size.title ? classes.selected : ''
+                      }`}
                       disabled={!size.available}
                     >
                       {size.title}
@@ -161,14 +165,15 @@ export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
             )}
             <div className={classes.productFeatures}>
               <h5>Price</h5>
-              <Price product={product} button={false} enableSale={enableSale} salePercentage={salePercentage} />
+              <Price
+                product={product}
+                button={false}
+                enableSale={enableSale}
+                salePercentage={salePercentage}
+              />
             </div>
           </div>
-          {soldOut && (
-            <span className={classes.soldOutMessage}>
-              Sold Out
-            </span>
-          )}
+          {soldOut && <span className={classes.soldOutMessage}>Sold Out</span>}
           {!soldOut && (
             <AddToCartButton
               product={product}
@@ -178,7 +183,7 @@ export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
               itemHasSize={sizes.length > 0}
             />
           )}
-          <div id='productVariations'>
+          <div id="productVariations">
             <Blocks
               disableTopPadding
               blocks={[
@@ -201,10 +206,16 @@ export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
             ) : (
               <Media imgClassName={classes.image} resource={selectedImage} fill />
             )}
-            {enableSale && salePercentage && (<span className={classes.saleBadge}>{salePercentage}% off</span>)}
-            {soldOut && (<span className={classes.soldOutBadge}>Sold Out</span>)}
+            {enableSale && salePercentage && (
+              <span className={classes.saleBadge}>{salePercentage}% off</span>
+            )}
+            {soldOut && <span className={classes.soldOutBadge}>Sold Out</span>}
             {sizeAndFit && typeof sizeAndFit !== 'string' && (
-              <img className={`${classes.image} ${classes.sizeAndFitImage}`} src={sizeAndFit.url} alt={sizeAndFit.alt} />
+              <img
+                className={`${classes.image} ${classes.sizeAndFitImage}`}
+                src={sizeAndFit.url}
+                alt={sizeAndFit.alt}
+              />
             )}
           </div>
           {selectedImage && typeof selectedImage !== 'string' && selectedImage?.caption && (
@@ -227,11 +238,7 @@ export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
                       alt={image.alt}
                     />
                   ) : (
-                    <Media
-                      imgClassName={classes.carouselImage}
-                      resource={image}
-                      src={image.url}
-                    />
+                    <Media imgClassName={classes.carouselImage} resource={image} src={image.url} />
                   )}
                 </div>
               ))}
@@ -242,7 +249,11 @@ export const ProductHero: React.FC<{ product: Product }> = ({ product }) => {
       {showSizeAndFit && (
         <div className={classes.sizeAndFitOverlay} onClick={closeSizeAndFit}>
           <div className={classes.sizeAndFitContent}>
-            <img className={classes.sizeAndFitPopupImage} src={sizeAndFit.url} alt={sizeAndFit.alt} />
+            <img
+              className={classes.sizeAndFitPopupImage}
+              src={sizeAndFit.url}
+              alt={sizeAndFit.alt}
+            />
           </div>
         </div>
       )}

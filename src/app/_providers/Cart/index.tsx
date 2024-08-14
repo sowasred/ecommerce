@@ -135,7 +135,7 @@ export const CartProvider = props => {
     if (!hasInitialized.current) return
 
     if (authStatus === 'loggedIn') {
-    // merge the user's cart with the local state upon logging in
+      // merge the user's cart with the local state upon logging in
       dispatchCart({
         type: 'MERGE_CART',
         payload: user?.cart,
@@ -213,7 +213,7 @@ export const CartProvider = props => {
     [cart],
   )
 
-    // this method can be used to add new items AND update existing ones
+  // this method can be used to add new items AND update existing ones
   const addItemToCart = useCallback(incomingItem => {
     dispatchCart({
       type: 'ADD_ITEM',
@@ -224,7 +224,7 @@ export const CartProvider = props => {
   const deleteItemFromCart = useCallback((incomingProduct: Product, selectedSize: string) => {
     dispatchCart({
       type: 'DELETE_ITEM',
-      payload:  { product: incomingProduct, size: selectedSize },
+      payload: { product: incomingProduct, size: selectedSize },
     })
   }, [])
 

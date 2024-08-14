@@ -140,7 +140,6 @@ const Products: CollectionConfig = {
               label: 'Enable Sale',
               type: 'checkbox',
               defaultValue: false,
-
             },
             {
               name: 'salePercentage',
