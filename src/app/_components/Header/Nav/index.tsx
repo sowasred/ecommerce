@@ -7,6 +7,8 @@ import { Header as HeaderType, User } from '../../../../payload/payload-types'
 import { useAuth } from '../../../_providers/Auth'
 import { CartLink } from '../../CartLink'
 import { CMSLink } from '../../Link'
+import { ThemeSelector } from '../../../_providers/Theme/ThemeSelector'
+
 
 import classes from './index.module.scss'
 
@@ -38,6 +40,7 @@ export const HeaderNav: React.FC<{ header: HeaderType }> = ({ header }) => {
       )}
       <React.Fragment>
         <Link href="/search">Search</Link>
+        <ThemeSelector />
       </React.Fragment>
     </nav>
   )
