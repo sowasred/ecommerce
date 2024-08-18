@@ -14,7 +14,7 @@ const defaultCollectionLabels = {
   },
 }
 
-export const PageRange: React.FC<{
+interface PageRangeProps {
   className?: string
   collection?: string
   collectionLabels?: {
@@ -25,24 +25,27 @@ export const PageRange: React.FC<{
   limit?: number
   totalDocs?: number
   loading?: boolean
-}> = props => {
+}
+
+export const PageRange: React.FC<PageRangeProps> = props => {
   const {
     collection,
     collectionLabels: collectionLabelsFromProps,
-    currentPage,
-    limit,
+    currentPage = 1,
+    limit = 1,
     totalDocs,
     loading,
-    className
+    className,
   } = props
-  let indexStart = (currentPage ? currentPage - 1 : 1) * (limit || 1) + 1
+
+  let indexStart = (currentPage - 1) * limit + 1
   if (totalDocs && indexStart > totalDocs) indexStart = 0
 
-  let indexEnd = (currentPage || 1) * (limit || 1)
+  let indexEnd = currentPage * limit
   if (totalDocs && indexEnd > totalDocs) indexEnd = totalDocs
 
   const { plural, singular } =
-    collectionLabelsFromProps || defaultCollectionLabels[collection || ''] || defaultLabels || {}
+    collectionLabelsFromProps || defaultCollectionLabels[collection || ''] || defaultLabels
 
   return (
     <div className={[className, classes.pageRange].filter(Boolean).join(' ')}>

@@ -3,11 +3,11 @@
 import React from 'react'
 import Link from 'next/link'
 
-import { Header as HeaderType, User } from '../../../../payload/payload-types'
 import { useAuth } from '../../../_providers/Auth'
 import { CartLink } from '../../CartLink'
 import { CMSLink } from '../../Link'
 import { ThemeSelector } from '../../../_providers/Theme/ThemeSelector'
+import { Header as HeaderType, User } from '../../../../payload/payload-types'
 
 
 import classes from './index.module.scss'
