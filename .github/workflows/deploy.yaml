@@ -1,9 +1,11 @@
-jobs:
+name: CI/CD Pipeline
+
 on:
   push:
     branches:
       - main
-      
+
+jobs:
   build:
     runs-on: ubuntu-latest
     env:
@@ -22,7 +24,6 @@ on:
       NEXT_PUBLIC_IS_LIVE: ${{ secrets.NEXT_PUBLIC_IS_LIVE }}
       NEXT_PUBLIC_SERVER_URL: ${{ secrets.NEXT_PUBLIC_SERVER_URL }}
       NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
-      PAYLOAD_CONFIG_PATH: ${{ secrets.PAYLOAD_CONFIG_PATH }}
       PAYLOAD_PUBLIC_DRAFT_SECRET: ${{ secrets.PAYLOAD_PUBLIC_DRAFT_SECRET }}
       PAYLOAD_PUBLIC_SERVER_URL: ${{ secrets.PAYLOAD_PUBLIC_SERVER_URL }}
       PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY: ${{ secrets.PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY }}
@@ -60,5 +61,5 @@ on:
         with:
           cluster: ${{ secrets.ECS_CLUSTER_NAME }}
           service: ${{ secrets.ECS_SERVICE_NAME }}
-          container-name: <your-container-name>
+          container-name: ecommerce-container
           image: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:$IMAGE_TAG
