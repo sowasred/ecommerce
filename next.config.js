@@ -6,7 +6,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['localhost', 'ecommerce-techfi.s3.amazonaws.com', process.env.NEXT_PUBLIC_SERVER_URL]
+    domains: ['localhost', 'ecommerce-techfi.s3.amazonaws.com', '6ix.store', process.env.NEXT_PUBLIC_SERVER_URL]
       .filter(Boolean)
       .map(url => url.replace(/https?:\/\//, '')),
     unoptimized: true,

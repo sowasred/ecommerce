@@ -6,6 +6,12 @@ WORKDIR /home/node/app
 COPY package*.json ./
 
 COPY . .
+
+RUN rm -rf .next
+RUN rm -rf dist
+RUN rm -rf build
+RUN rm -rf node_modules
+
 RUN yarn install
 RUN yarn build
 
@@ -23,6 +29,6 @@ COPY --from=builder /home/node/app/dist ./dist
 COPY --from=builder /home/node/app/build ./build
 COPY --from=builder /home/node/app/.next ./.next 
 
-EXPOSE 3000
+EXPOSE 80
 
 CMD ["node", "dist/server.js"]
