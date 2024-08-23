@@ -40,9 +40,9 @@ jobs:
 
       - name: Debug Environment Variables
         run: |
-        echo "NODE_ENV: $NODE_ENV"
-        echo "PAYLOAD_SECRET_KEY: $PAYLOAD_SECRET_KEY"
-        echo "DATABASE_URI: $DATABASE_URI"
+          echo "NODE_ENV: $NODE_ENV"
+          echo "PAYLOAD_SECRET_KEY: $PAYLOAD_SECRET_KEY"
+          echo "DATABASE_URI: $DATABASE_URI"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
