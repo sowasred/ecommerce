@@ -52,7 +52,7 @@ export default async function Page({ params: { slug = 'home' } }) {
 
   return (
     <React.Fragment>
-      <h1>Ozan Test</h1>
+      <h1>Ozan Test12</h1>
       <Hero {...hero} />
       <Blocks
         blocks={layout}
