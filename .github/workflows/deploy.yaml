@@ -64,6 +64,13 @@ jobs:
           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
           echo "PAYLOAD_CONFIG_PATH=${{ secrets.PAYLOAD_CONFIG_PATH }}" >> .env
 
+      - name: Enable debug logging 1
+        run: |
+          echo "::set-env name=DEBUG::true"
+
+      - name: Enable debug logging 2
+        run: echo "RUNNER_DEBUG=true" >> $GITHUB_ENV
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
