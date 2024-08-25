@@ -11,6 +11,8 @@ RUN rm -rf .next
 RUN rm -rf dist
 RUN rm -rf build
 RUN rm -rf node_modules
+RUN yarn cache clean
+
 
 RUN yarn install
 RUN yarn build
