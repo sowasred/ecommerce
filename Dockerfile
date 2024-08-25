@@ -12,6 +12,7 @@ RUN rm -rf dist
 RUN rm -rf build
 RUN rm -rf node_modules
 RUN rm -rf package-lock.json
+RUN rm -rf yarn.lock
 RUN yarn cache clean
 
 
