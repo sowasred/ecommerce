@@ -38,6 +38,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Create .env file
+        run: |
+          echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
+          echo "DATABASE_URI=${{ secrets.DATABASE_URI }}" >> .env
+          echo "PAYLOAD_SECRET_KEY=${{ secrets.PAYLOAD_SECRET_KEY }}" >> .env
+          echo "NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_SERVER_URL }}" >> .env
+          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> .env
+          echo "STRIPE_WEBHOOKS_SIGNING_SECRET=${{ secrets.STRIPE_WEBHOOKS_SIGNING_SECRET }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "REVALIDATION_KEY=${{ secrets.REVALIDATION_KEY }}" >> .env
+          echo "PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}" >> .env
+          echo "PAYLOAD_PUBLIC_SERVER_URL=${{ secrets.PAYLOAD_PUBLIC_SERVER_URL }}" >> .env
+          echo "PAYLOAD_PUBLIC_DRAFT_SECRET=${{ secrets.PAYLOAD_PUBLIC_DRAFT_SECRET }}" >> .env
+          echo "PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY=${{ secrets.PAYLOAD_PUBLIC_STRIPE_IS_TEST_KEY }}" >> .env
+          echo "NEXT_PUBLIC_IS_LIVE=${{ secrets.NEXT_PUBLIC_IS_LIVE }}" >> .env
+          echo "NEXT_PRIVATE_DRAFT_SECRET=${{ secrets.NEXT_PRIVATE_DRAFT_SECRET }}" >> .env
+          echo "NEXT_PRIVATE_REVALIDATION_KEY=${{ secrets.NEXT_PRIVATE_REVALIDATION_KEY }}" >> .env
+          echo "NEXT_BUILD=${{ secrets.NEXT_BUILD }}" >> .env
+          echo "DATABASE_USER=${{ secrets.DATABASE_USER }}" >> .env
+          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
+          echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> .env
+          echo "AWS_BUCKET_NAME=${{ secrets.AWS_BUCKET_NAME }}" >> .env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+          echo "PAYLOAD_CONFIG_PATH=${{ secrets.PAYLOAD_CONFIG_PATH }}" >> .env
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
