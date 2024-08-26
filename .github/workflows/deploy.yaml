@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: production  
+    strategy:
+      matrix:
+        node-version: [21.x]
     env:
       NODE_ENV: production
       PAYLOAD_CONFIG_PATH: dist/payload/payload.config.js
