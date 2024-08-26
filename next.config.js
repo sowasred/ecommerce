@@ -49,7 +49,7 @@ const nextConfig = {
   webpack: (config, { isServer }) => {
     // Add infrastructure logging configuration
     config.infrastructureLogging = { debug: /PackFileCache/ };
-    
+
     if (!isServer) {
       config.cache = {
         type: 'filesystem',
@@ -58,6 +58,8 @@ const nextConfig = {
         },
       };
     }
+    // disable cache for faster builds
+    config.cache = false;
     return config;
   },
 }
