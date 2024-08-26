@@ -47,6 +47,9 @@ const nextConfig = {
     return headers
   },
   webpack: (config, { isServer }) => {
+    // Add infrastructure logging configuration
+    config.infrastructureLogging = { debug: /PackFileCache/ };
+    
     if (!isServer) {
       config.cache = {
         type: 'filesystem',
